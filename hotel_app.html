@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root {
+        --room-size: 40px;
+        --pad: 3em;
+        --fs-1: 1rem;
+        --fs-2: 2rem;
+        --fs-3: 3rem;
+        --busy-color: rgb(187, 42, 42);
+        --vacant-color: rgb(2, 99, 67);
+        /* --selected-color: #bb2a2a; */
+        --color-prime: #fff;
+        --color-primary-1: #04244a;
+        --color-primary-2: #0468d7;
+        --color-red: #e63946;
+        --color-green: #37a447;
+        --color-turquoise: #37a49a;
+        --color-blue: #3766a4;
+        --color-disabled: #c1c1c1;
+
+        --color-base-1: #f8f9fb;
+        --color-base-2: #464849;
+        --ui-drop-shadow-1: 0px 8px 24px rgba(0, 0, 0, .25);
+        --ui-drop-shadow-2: 0px 3px 25px rgba(0, 0, 0, .25);
+
+        --font-size-heading-1: 60px;
+        --font-size-heading-2: 36px;
+        --font-size-heading-3: 28px;
+
+        --padding-text-1: 1em;
+        --padding-text-2: 2em;
+        --padding-container-1: 1em;
+        --padding-container-2: 2em;
+
+        --gutter: 2em;
+        --app-gutter: 15em;
+        --card-border-radius: 24px;
+        --btn-border-radius: 8px;
+        /* --ui-card-width: 484px; */
+        --trans-1: .2s;
+        --on-hover-btn-1: translateY(-5%);
+        --on-hover-txt-1: .8
+    }
+
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #BBD2C5;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #536976, #BBD2C5);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #536976, #BBD2C5);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    .header__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        cursor: pointer;
+        transition: var(--trans-1);
+        z-index: 2;
+        width: 100vw;
+        box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.271);
+        background-color: #005539;
+        position: fixed;
+    }
+
+    .header__container:hover {
+        opacity: var(--on-hover-txt-1);
+    }
+
+    .app__title {
+        color: var(--color-base-1);
+        font-weight: bold;
+        font-size: var(--fs-2);
+    }
+
+    .hotel__container {
+        margin: 3em 0;
+        width: 100vw;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding-top: 7em;
+    }
+
+    h1 {
+        padding: 1em;
+        background: #005539;
+        color: antiquewhite;
+        box-shadow: 2px 2px 16px 1px #000;
+        transition: .2s;
+    }
+
+    h1:hover {
+        transform: var(--on-hover-1)
+    }
+
+    .chart__container {
+        width: 60%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* .chart__container:nth-child(2) .hotel__room:nth-child(4n-7) {
+        background: var(--busy-color);
+    } */
+
+    .hotel__room {
+        margin: 3px;
+        width: var(--room-size);
+        height: var(--room-size);
+        /* background: var(--vacant-color); */
+        transition: .5s;
+        cursor: pointer;
+    }
+
+    .hotel__room:hover {
+        opacity: .6;
+    }
+
+
+
+
+
+
+
+
+    .popup__back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.555);
+        top: 0;
+        left: 0;
+    }
+
+    .popup__container {
+        position: fixed;
+        background: rgba(8, 22, 3, 0.89);
+        color: aliceblue;
+        padding: var(--pad);
+        width: 30%;
+        top: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 10px solid #005539;
+    }
+
+    .popup__title {
+        font-size: var(--fs);
+    }
+
+    .input__wrapper {
+        width: 100%;
+    }
+
+    .apikey__input {
+        text-align: center;
+        width: 100%;
+        display: block;
+        border: none;
+        outline: none;
+        padding: 0.7em;
+        font-size: var(--fs)*.3;
+        transition: .2s;
+    }
+
+    .apikey__input:focus::-webkit-input-placeholder {
+        transform: translateY(-3em);
+        transition: .2s;
+    }
+
+    .submit__btn {
+        display: block;
+        margin: 1.3em auto;
+        font-size: 1.3rem;
+        background-color: #005539;
+        color: aliceblue;
+        padding: .7em 1.4em;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .submit__btn:hover {
+        opacity: .7;
+    }
+
+
+    .filters__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        padding: .5em 1.4em;
+        height: fit-content;
+        background-color: rgba(8, 61, 8, 0.11);
+    }
+
+    .text__label {
+        font-size: 1.5rem;
+        margin: 0 5px;
+        color: #fff;
+        font-weight: bold;
+
+    }
+
+    .filter_selection {
+        padding: calc(var(--pad)*.3);
+        margin: calc(var(--pad)*.2);
+        cursor: pointer;
+        transition: .2s;
+
+    }
+
+    .filter_selection:hover {
+        background-color: #093f2dd8;
+
+    }
+
+    .color__square {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+    }
+
+    .green {
+        background-color: var(--vacant-color);
+    }
+
+    .red {
+        background-color: var(--busy-color);
+    }
+
+    .yellow {
+        background: #d1f11b;
+
+    }
+
+    #site {
+        display: contents
+    }
+
+    #site-header {
+        display: none;
+    }
+
+    .hotels__container {
+        width: 100vw;
+        height: 100vw;
+        /* padding-top: 7em; */
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
+
+
+
+    /* ============ Form Styling ============== */
+    .form {
+        transition: .4s;
+        box-shadow: 1px 1px 15px #000;
+        position: fixed;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.555);
+        top: -10%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+    }
+
+    .form,
+    .form_fieldset,
+    .form-field,
+    .form-button {
+        border: 0;
+    }
+
+
+    fieldset {
+        padding: 0;
+    }
+
+    .form {
+        background-color: #CCC;
+        padding: 20px;
+        border-radius: 10px;
+        width: 600px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    label.form-label {
+        color: blue;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 5px;
+        color: red;
+    }
+
+    .form-field {
+        height: 35px;
+        width: 100%;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        text-indent: 10px;
+        font-size: 12px;
+    }
+
+    .form-dates {
+        width: 48%;
+        display: inline-block;
+    }
+
+    .form-dates:nth-of-type(2) {
+        float: right;
+    }
+
+    .form-button {
+        cursor: pointer;
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        background-color: var(--vacant-color);
+        color: white;
+        font-weight: 600;
+        font-size: 20px;
+        transition: .4s;
+    }
+
+    .form-button:hover {
+        background-color: #005539c5;
+    }
+
+    .btns__container {
+        display: flex;
+        align-items: center;
+        justify-self: space-between;
+    }
+
+
+
+
+
+
+
+    .bar__container {
+
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        background: #ddd
+    }
+
+    .bar {
+        box-shadow: 1px 1px 2px #000;
+        transition: .4s;
+        /* width: 100%; */
+        background-color: #fff;
+        padding: 5px;
+        position: relative;
+
+    }
+
+    .progress {
+        width: 0%;
+        height: 30px;
+        background-color: #04AA6D;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+        position: relative;
+    }
+
+    .title {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .percent {
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+
+    }
+
+
+
+    .the__container {
+        overflow: hidden;
+        position: fixed;
+        width: 500px;
+        max-height: 900px;
+        min-height: 900px;
+        background-color: #CCC;
+        box-shadow: 0px 0px 2px 14px #000;
+        top: 15%;
+        left: 0;
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        border: 5px solid #005539;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        box-shadow: 0px 0px 48px 0px #0006;
+
+    }
+
+    .container__toggle {
+        position: absolute;
+        width: 10px;
+        height: 1000px;
+        position: absolute;
+        background-color: blue;
+        cursor: pointer;
+        border: none;
+    }
+
+
+    .container__body {
+        height: 900px;
+        width: 100%;
+        position: relative;
+        background-color: rgb(125, 113, 113);
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding: 4px;
+        overflow: auto;
+        gap: 4px;
+    }
+
+    .confirm__reserved {
+        color: #fff;
+        background-color: #005539;
+        width: 100%;
+        height: 60px;
+    }
+
+    .new__resevedRoom {
+        width: 100%;
+        padding: 1px;
+        height: 40px;
+        background-color: aqua;
+    }
+</style>
+
+<body>
+
+    <div class="header__container">
+        <p class="app__title">برنامج إدارة فنادق</p>
+        <div class="filters__container">
+            <!-- <div class="empty__rooms filter_selection">
+                <span class="text__label">خالي</span>
+                <span class="color__square green"></span>
+            </div>
+            <div class="occupied__rooms filter_selection">
+                <span class="text__label">مشغول</span>
+                <span class="color__square red"></span>
+            </div>
+            <div class="all__rooms filter_selection">
+                <span class="text__label">الكل</span>
+                <span class="color__square yellow"></span>
+            </div> -->
+        </div>
+    </div>
+    </div>
+
+    <div class="hotels__container">
+
+
+        <div class="hotels__container">
+            <a style="display:none" href="#" class="hotel__room"></a>
+            <div class="hotel__container hotel${i1}">
+                <h1 class="hotel__title">
+                </h1>
+                <div class="chart__container">
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <script>
+            $(document).ready(() => {
+
+
+                // =================== DOM ELEMENTS =====================
+                let reservedRoom = "rgb(187, 42, 42)"
+                let vacantRoom = "rgb(2, 99, 67)"
+                let reserveForm = `
+                    <form class="form">
+                             <fieldset class="form_fieldset">
+    <div class="form-dates">
+      <label for="" class="form-label">Check in</label>
+      <input type="date" class="form-field form-field--side from_date" />
+    </div>
+    <div class="form-dates">
+      <label for="" class="form-label">Check out</label>
+      <input type="date" class="form-field to_date" />
+    </div>
+    <div class="btns__container">
+    <input type="button" value="Confirm" class="form-button confirm" />
+    <input type="button" value="Cancel" class="form-button cancel" />
+  </div>
+    </fieldset>
+</form>`
+                let theContainer = `
+<div class="the__container">
+
+    <div class="container__body"></div>
+  
+        <button type="button" class="confirm__reserved">احجز</button>
+    <span class="container__toggle"></span>
+              
+        
+
+</div>
+`
+
+                let allHotels = [];
+                let allRooms = $(".hotel__room")
+                let summaryEntity = "le_workflow-type-entity-7"
+                let siteAPIKEY = "cb4e120711c1312b67d2f332be86265ce9c7b485"
+                let hotelsDetails = {}
+                $("body").append(reserveForm).append(theContainer)
+
+                $.get(`/v2/api/entity/${summaryEntity}/list`).done(data => {
+                    let allHotelsDetails = data.data
+                    // console.log(allHotelsDetails)
+                    $.each(allHotelsDetails, (eachHotelID, eachHotel) => {
+                        let hotelDetails = {}
+                        let hotel_id = eachHotel[
+                            "le_workflow-type-entity-7_custom_data"].hotel_id
+                        hotelDetails.hotel_name = eachHotel[
+                            "le_workflow-type-entity-7_custom_data"].hotel_name
+                        hotelDetails.storeys_count = eachHotel[
+                            "le_workflow-type-entity-7_custom_data"].storeys_count
+                        hotelDetails.storey_rooms = eachHotel[
+                            "le_workflow-type-entity-7_custom_data"].storey_rooms
+                        hotelsDetails[hotel_id] = hotelDetails
+                        // console.log(hotelsDetails)
+                    })
+                })
+
+
+
+                $.get(`/v2/api/entity/workflow_type/list`)
+                    .done(data => {
+                        let allInstances = data.data
+                        let allHotelReuests = allInstances.map(hotel => $.get(
+                            `/v2/api/entity/${hotel.entity_key}/list?per_page=1500`))
+
+                        Promise.all(allHotelReuests).then(allResponses => {
+                            allResponses.map((data, i1) => {
+                                let hotelData = data.data
+                                let entityKey = hotelData[0].workflow_type.entity_key
+                                let mainKey = hotelData[0].workflow_type.entity_key.split(
+                                        "-")
+                                    .slice(-1)
+
+                                // console.log(
+                                //     `Hotel ${hotelData[0].workflow_type.name}: ${hotelData.length} rooms.`
+                                // )
+
+                                let newHotel =
+                                    `
+                            <div class="hotel__container data-hotel_url="${entityKey}" data-hotel_key="${mainKey}" hotel${i1}"><h1 class="hotel__title">${hotelData[0].workflow_type.name} </h1><div class="chart__container hotel_chart${mainKey}"></div></div>`
+                                $(".hotels__container").append(newHotel)
+
+
+                                hotelData.map((newRoom, i2) => {
+                                    let hotelID = newRoom.id
+                                    let hotelStartDate = newRoom.start_date
+                                    let hotelSDeliveryDate = newRoom.delivery_date
+                                    let reserved = !hotelSDeliveryDate ? false :
+                                        true
+                                    let roomColor = reserved ? reservedRoom :
+                                        vacantRoom
+
+                                    let roomElement = hotelData.length > 0 ?
+                                        `<div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"></div>` :
+                                        "لا يوجد غرف في هذا الفندق"
+                                    $(".hotel_chart" + mainKey).append(roomElement)
+
+                                })
+                            })
+                        })
+
+                    }).then(() => {
+
+
+                        setTimeout(() => {
+                            allRooms = $(".hotel__room");
+                            console.log(allRooms)
+                            roomClick()
+                        }, 5000)
+
+                        console.log("Done!")
+                    })
+
+
+                console.log(allRooms)
+
+                allRooms.click(function (e) {
+                    e.stopImmediatePropagation();
+                    $this = $(this)
+                    // $this.data("booked") = "true"
+                    console.log($this)
+
+                    // setTimeout(() => {
+                    //     let allReservedRooms = $(".new__resevedRoom")
+                    //     console.log(allReservedRooms)
+                    // }, 100)
+
+                    // allReservedRooms.click(function () {
+                    //     let $this = $(this)
+                    //     $this.remove()
+                    // })
+
+
+                    let newResevedRoom = `
+                <div class="new__resevedRoom">غرفة جديدة!</div>
+                `
+                    $(".container__body").append(newResevedRoom)
+
+
+
+                    if ($this.css("backgroundColor") !=
+                        reservedRoom) {
+                        $this.css({
+                            backgroundColor: reservedRoom
+                        })
+                        console.log(false)
+
+                        // $(".form").css({
+                        //     top: "50%"
+                        // })
+                        $(".container__body").append(
+                            newResevedRoom)
+                    } else {
+                        console.log(true)
+                        $this.css({
+                            backgroundColor: vacantRoom
+                        })
+
+                    }
+                })
+                //     $.each(allInstances, (i, v) => allHotels.push(v.entity_key))
+                // }).done(() => {
+                //     allHotels.pop()
+                //     console.log(allHotels)
+                //                 $.each(allHotels, (i1, hotel) => {
+                //                     $.get(`/v2/api/entity/${hotel}/list?per_page=1500`).done(
+                //                         data => {
+                //                             let hotelData = data.data
+                //                             console.log(
+                //                                 `Hotel ${hotelData[0].workflow_type.name}: ${hotelData.length} rooms.`ححح
+                //                             )
+
+                //                             let newHotel = `<div class="hotel__container hotel${i1}">
+                //     <h1 class="hotel__title">
+                //         ${hotelData[0].workflow_type.name} 
+                //     </h1>
+                //     <div class="chart__container hotel_chart${i1}">
+
+                //     </div>
+                // </div>`
+                // $(".hotels__container").append(newHotel)
+                // for (let i = 0; i < hotelRooms; i++) {
+                //     $.each(hotelData, (i2, newRoom) => {
+                //         let hotelID = newRoom.id
+                //         let hotelStartDate = newRoom.start_date
+                //         let hotelSDeliveryDate = newRoom
+                //             .delivery_date
+                //         let reserved = !hotelSDeliveryDate ?
+                //             false : true
+                //         let roomColor = reserved ?
+                //             reservedRoom : vacantRoom
+
+                //         let roomElement = hotelData.length > 0 ?
+                //             `<div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"></div>` :
+                //             "لا يوجد غرف في هذا الفندق"
+                //         $(".hotel_chart" + i1).append(
+                //             roomElement)
+                //         console.log("Done!")
+
+                //     })
+                // }).done(() => {
+
+                //     let allRooms = $(".hotel__room")
+                //     let numOfClicks = 0
+
+
+
+
+
+                // $(document).click(e => {
+                //     if (e.target.closest(".form")) return false;
+                //     console.log(e.target);
+                // });
+
+
+                //         })
+                // })
+                // })
+
+                // ============ MODAL POP UP ============
+                $(".cancel").click(() => {
+                    console.log("removed!")
+                    $(".form").css({
+                        top: "-10%"
+                    })
+                })
+
+                $(".confirm").click(() => {
+                    let fromDate = $(".from_date").val()
+                    let toDate = $(".to_date").val()
+                    console.log(fromDate, toDate)
+                })
+
+
+
+                // ============ AUTH POP UP ===============
+                const apiKey = "pop"
+                const popUpElement = `
+            <div class="popup__back">
+        <div class="popup__container">
+            <div class="popup__title">Enter Your API Key Here</div>
+            <div class="input__wrapper">
+                <input class="apikey__input" type="text" placeholder="e.g rgw3242342" />
+                <input class="submit__btn" type="submit" /></div>
+        </div>
+    </div>
+            `
+                // $("body").append(popUpElement)
+                // const submitFn = () => {
+                //     let apiInput = $(".apikey__input").val()
+                //     if (apiKey == apiInput) {
+                //         console.log(apiInput)
+                //         $(".popup__back").hide()
+                //     }
+                // }
+
+                // const filterOut = (colorOut, colorIn, selected) => {
+
+                //     allRooms.filter((i, val) => {
+                //         let eleColor = $(val).css("backgroundColor")
+
+                //         if (eleColor == colorOut) $(val).css({
+                //             opacity: ".3",
+                //             pointerEvents: "none",
+                //             cursor: "default"
+                //         });
+                //         else if (eleColor == colorIn) $(val).css({
+                //             opacity: "1",
+                //             pointerEvents: "auto",
+                //             cursor: "pointer"
+                //         })
+                //     })
+                //     $(".all__rooms, .occupied__rooms, .empty__rooms").css({
+                //         backgroundColor: "transparent"
+                //     })
+                //     $(selected).css({
+                //         backgroundColor: "#093f2dd8"
+                //     })
+                // }
+                // const filterIn = (selected) => {
+
+                //     $.each(allRooms, (i, val) => {
+                //         $(val).css({
+                //             opacity: "1",
+                //             pointerEvents: "auto",
+                //             cursor: "pointer"
+                //         })
+                //     })
+                //     $(".all__rooms, .occupied__rooms, .empty__rooms").css({
+                //         backgroundColor: "transparent"
+                //     })
+                //     $(selected).css({
+                //         backgroundColor: "#093f2dd8"
+                //     })
+                // }
+
+
+
+                //============ Submit and Authentication ==================
+
+                // $(".submit__btn").click(() => {
+                //     submitFn();
+                // }) $(".apikey__input").keypress(e => {
+                //     if (e.which === 13) submitFn()
+                // })
+                // //============ Filter colors ==================
+                // $(".occupied__rooms").click(() => {
+                //     filterOut("rgb(0, 128, 0)", "rgb(255, 0, 0)", ".occupied__rooms")
+                // }) $(".empty__rooms").click(() => {
+                //     filterOut("rgb(255, 0, 0)", "rgb(0, 128, 0)", ".empty__rooms")
+                // }) $(".all__rooms").click(() => {
+                //     filterIn(".all__rooms")
+                // })
+
+
+                // const ds = new DragSelect({
+                //     selectables: $(".hotel__room"),
+                //     // area: $(".hotel__container")
+                // })
+                // ds.subscribe('callback', ({
+                //     items,
+                //     event
+                // }) => {
+                //     $.each(items, (i, item) => {
+                //         // console.log(items)
+
+                //         $(item).css({
+                //             backgroundColor: "var(--selected-color)"
+                //         })
+                //     })
+                // })
+
+
+
+
+
+
+
+
+
+                // ============ Functions ==============
+
+
+                const roomClick = () => {
+                    allRooms.click(function (e) {
+                        e.stopImmediatePropagation();
+                        $this = $(this)
+                        // $this.data("booked") = "true"
+                        console.log($this)
+                        // setTimeout(() => {
+
+                        //     let allReservedRooms = $(
+                        //         ".new__resevedRoom")
+                        //     console.log(allReservedRooms)
+                        // }, 100)
+
+                        // allReservedRooms.click(function () {
+                        //     let $this = $(this)
+                        //     $this.remove()
+                        // })
+
+
+                        let newResevedRoom = `
+                <div class="new__resevedRoom">غرفة جديدة!</div>
+                `
+                        $(".container__body").append(newResevedRoom)
+                        if ($this.css("backgroundColor") !=
+                            reservedRoom) {
+                            $this.css({
+                                backgroundColor: reservedRoom
+                            })
+                            console.log(false)
+
+                            // $(".form").css({
+                            //     top: "50%"
+                            // })
+                            $(".container__body").append(
+                                newResevedRoom)
+                        } else {
+                            console.log(true)
+                            $this.css({
+                                backgroundColor: vacantRoom
+                            })
+
+                        }
+                    })
+                }
+
+
+            })
+        </script>
+</body>
+
+</html>

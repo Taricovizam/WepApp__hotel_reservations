@@ -9,27 +9,25 @@
 </head>
 <style>
     :root {
-        --room-size: 40px;
-        --pad: 3em;
         --fs-1: 1rem;
         --fs-2: 2rem;
         --fs-3: 3rem;
-        --busy-color: rgb(187, 42, 42);
-        --vacant-color: rgb(2, 99, 67);
-        /* --selected-color: #bb2a2a; */
-        --color-prime: #fff;
-        --color-primary-1: #04244a;
-        --color-primary-2: #0468d7;
-        --color-red: #e63946;
-        --color-green: #37a447;
-        --color-turquoise: #37a49a;
-        --color-blue: #3766a4;
-        --color-disabled: #c1c1c1;
+        --room-size: 40px;
+        
+        --color-base-1: #f5f7fd;
+        /* --color-base-2: #464849; */
+        
+        /* --color-prime: #fff; */
+        
 
-        --color-base-1: #f8f9fb;
-        --color-base-2: #464849;
-        --ui-drop-shadow-1: 0px 8px 24px rgba(0, 0, 0, .25);
-        --ui-drop-shadow-2: 0px 3px 25px rgba(0, 0, 0, .25);
+        --color-busy: rgb(231, 92, 66);
+        --color-vacant: rgb(63, 173, 78);
+        --color-disabled: #c1c1c1;
+        
+        
+        --ui-drop-shadow-1: 0px 8px 24px rgba(0, 0, 0, 0.405);
+        --ui-drop-shadow-2: 0px 3px 25px rgba(0, 0, 0, 0.572);
+        --shadow-tile: 0px 0px 10px 0px rgba(17, 17, 17, 0.271);
 
         --font-size-heading-1: 60px;
         --font-size-heading-2: 36px;
@@ -40,100 +38,189 @@
         --padding-container-1: 1em;
         --padding-container-2: 2em;
 
-        --gutter: 2em;
+        --gutter-1: 1em;
+        --gutter-2: 2em;
         --app-gutter: 15em;
-        --card-border-radius: 24px;
+        --room-border-radius: 4px;
         --btn-border-radius: 8px;
-        /* --ui-card-width: 484px; */
+        --ui-card-width: 484px;
         --trans-1: .2s;
         --on-hover-btn-1: translateY(-5%);
-        --on-hover-txt-1: .8
+        --on-hover-txt-1: .8;
+
+        --color-prime: #fff;
+        --color-bg-1: #34495e;
+        --color-font-1:#f5f7fd;
+        --color-primary: #1abc9c;
+        --color-secondary: #7c95a1;
+        --color-accent: #5DA0A2;
     }
 
 
     body {
+        direction: rtl;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         overflow-x: hidden;
         position: relative;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #BBD2C5;
-        background: -webkit-linear-gradient(to right, #536976, #BBD2C5);
-        background: linear-gradient(to right, #536976, #BBD2C5);
+        background: var(--color-base-1)
+    }
+    #site {
+        display: contents
+    }
 
+    #site-header {
+        display: none;
     }
 
     .header__container {
+        /* padding: var(--padding-container-1) ; */
+        margin: auto;
+        width:100%;
         display: flex;
+        justify-content: space-around;
+        cursor: pointer;
+        box-shadow: var(--ui-drop-shadow-1);
+        background-color: var(--color-bg-1);
+        position: fixed;
+        z-index: 2;
+    }
+    .report__go{
+        height: 100%;
+        padding: var(--padding-text-1);
+    color: var(--color-font-1);
+    transition: var(--trans-1);
+    font-size: var(--fs-1);
+    }
+.title__container{
+    display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        cursor: pointer;
-        z-index: 2;
-        width: 100vw;
-        box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.271);
-        background-color: #005539;
-        position: fixed;
-    }
-    
+    /* margin-inline:  calc(var(--gutter-2)*3); */
+    /* padding: var(--padding-text-1); */
+    color: var(--color-font-1);
+    transition: var(--trans-1);
+}
     .app__title {
-        color: var(--color-base-1);
-        transition: var(--trans-1);
+        margin: 0;
         font-weight: bold;
         font-size: var(--fs-2);
+        
     }
-    .app__title:hover {
+    .small__text{
+        margin: 0%;
+        font-size:1rem;
+text-align: center;
+width: 100%;
+    }
+    .title__container:hover {
         opacity: var(--on-hover-txt-1);
     }
 
+    .hotels__container {
+        /* width: 100vw; */
+        /* height: 100vw; */
+        /* padding-top: 7em; */
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+.tools__container{
+    
+}
     .hotel__container {
-        margin: 3em 0;
-        width: 100vw;
-        height: fit-content;
+        background-color: var(--color-prime);
+        margin: var(--app-gutter) auto;
+        border-radius: var(--btn-border-radius);
+        width: 90vw;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         flex-direction: column;
-        padding-top: 7em;
+        padding: var(--padding-container-2) var(--padding-container-1);
     }
 
-    h1 {
-        padding: 1em;
-        background: #005539;
-        color: antiquewhite;
-        box-shadow: 2px 2px 16px 1px #000;
-        transition: .2s;
+    .hotel__title {
+        margin: 0 0 var(--gutter-1);
+        padding: var(--padding-container-1);
+        border-radius: var(--btn-border-radius);
+        background: var(--color-secondary);
+        color: var(--color-font-1);
+        box-shadow: var(--shadow-tiles);
+        transition: var(--trans-1);
+        box-shadow: var(--ui-drop-shadow-1);
+        cursor: pointer;
     }
-
-    h1:hover {
-        transform: var(--on-hover-1)
-    }
+    .hotel__title:hover{
+        transform: var(--on-hover-btn-1);
+    }   
 
     .chart__container {
-        width: 60%;
+        width: 80%;
         margin: 0 auto;
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: var(--gutter-1);
     }
 
     /* .chart__container:nth-child(2) .hotel__room:nth-child(4n-7) {
         background: var(--busy-color);
     } */
 
+    .storey{
+        box-shadow: var(--ui-drop-shadow-1);
+        background-color: var(--color-bg-1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+        padding:  var(--padding-container-1) calc(var(--padding-container-1)*3);
+        border-radius: var(--btn-border-radius);
+        width: 95%;
+        min-height: 5em;
+    }
+    .storey::before{
+        text-align: center;
+        padding: calc(var(--padding-container-1)*.2);
+        content: attr(data-storey);
+        background-color: var(--color-accent);
+        border-radius: var(--room-border-radius);
+        color: var(--color-base-1);
+        font-size: var(--fs-2);
+        font-weight: bold;
+        position:absolute;
+        top: 0%; 
+        right: 0px;
+        /* border: var(--color-primary-2) solid 1px; */
+
+
+
+    }
     .hotel__room {
+
+        display: flex;
+align-items: center;
+justify-content: center;
         margin: 3px;
         width: var(--room-size);
         height: var(--room-size);
-        /* background: var(--vacant-color); */
-        transition: .5s;
+        transition: var(--trans-1);
         cursor: pointer;
+        background: var(--color-secondary);
+        color: var(--color-base-1);
+        border-radius: var(--room-border-radius);
     }
 
     .hotel__room:hover {
-        opacity: .6;
+        transform: var(--on-hover-btn-1);
     }
 
 
@@ -141,7 +228,7 @@
 
 
 
-
+ /* 
 
     .popup__back {
         position: absolute;
@@ -226,7 +313,7 @@
 
     }
 
-    .filter_selection {
+   .filter_selection {
         padding: calc(var(--pad)*.3);
         margin: calc(var(--pad)*.2);
         cursor: pointer;
@@ -237,7 +324,7 @@
     .filter_selection:hover {
         background-color: #093f2dd8;
 
-    }
+    } 
 
     .color__square {
         width: 20px;
@@ -258,24 +345,7 @@
 
     }
 
-    #site {
-        display: contents
-    }
-
-    #site-header {
-        display: none;
-    }
-
-    .hotels__container {
-        width: 100vw;
-        height: 100vw;
-        /* padding-top: 7em; */
-        display: flex;
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-
+  */
 
 
 
@@ -476,37 +546,59 @@
 <body>
 
     <div class="header__container">
-        <p class="app__title">برنامج إدارة فنادق</p>
-        <div class="filters__container">
-            <!-- <div class="empty__rooms filter_selection">
-                <span class="text__label">خالي</span>
-                <span class="color__square green"></span>
-            </div>
-            <div class="occupied__rooms filter_selection">
-                <span class="text__label">مشغول</span>
-                <span class="color__square red"></span>
-            </div>
-            <div class="all__rooms filter_selection">
-                <span class="text__label">الكل</span>
-                <span class="color__square yellow"></span>
-            </div> -->
+        <div class="title__container">
+            <p class="app__title">شركة المسافرين</p>
+            <p class="small__text">لخدمات السفر والاعتمار</p>
+        </div>
+        <div class="report__go">
+            <p class="">اذهب للتقاير</p>
         </div>
     </div>
+
+    <div class="tools__container">
+        <div class="filters__container">
+            <div class="filterz"></div>
+            <div class="filterz"></div>
+            <div class="filterz"></div>
+            <div class="filterz"></div>
+        </div>
+        <div class="select__container">
+<select name="hotels" class="selec__hotel">
+<option value="1" class="option1">فندق ١</option>
+<option value="2" class="option2">فندق ٢</option>
+<option value="3" class="option3">فندق ٣</option>
+<option value="4" class="option4">فندق ٤</option>
+<option value="5" class="option5">فندق ٥</option>
+</select>
+        </div>
     </div>
-
-    <div class="hotels__container">
-
 
         <div class="hotels__container">
             <a style="display:none" href="#" class="hotel__room"></a>
             <div class="hotel__container hotel${i1}">
-                <h1 class="hotel__title">
+                <h1 class="hotel__title">فندق شيراتون جزة 
                 </h1>
                 <div class="chart__container">
+                    <div class="storey story_1" data-hotel="1" data-storey="1">
+                        <div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div>
+                    </div>
+                    <div class="storey story_1" data-hotel="1" data-storey="2">
+                        <div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div>
+                        <div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div>
+                    </div>
+                    <div class="storey story_1" data-hotel="1" data-storey="3">
+                        <div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div>
+                        <div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div>
+                    </div>
+                    <div class="storey story_1" data-hotel="1" data-storey="4">
+                        <div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div>
+                        <div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div><div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"><p style="margin:auto">233</p></div>
+                    </div>
+                    
                 </div>
             </div>
-
         </div>
+
 
 
 

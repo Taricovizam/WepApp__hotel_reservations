@@ -96,6 +96,9 @@
         transition: var(--trans-1);
         font-size: var(--fs-1);
     }
+    .report__go:hover{
+        opacity: var(--on-hover-txt-1);
+    }
 
     .title__container {
         display: flex;
@@ -127,19 +130,63 @@
     }
 
     .hotels__container {
-        /* width: 100vw; */
-        /* height: 100vw; */
-        /* padding-top: 7em; */
+width: 100vw;
+position: relative;
+        padding: 8em 0;
         display: flex;
         align-items: flex-start;
         flex-direction: column;
     }
 
-    .tools__container {}
-
+    .tools__container {
+        display: flex;
+        align-items: space-between;
+        width: 80%;
+        margin: 0 auto;
+        padding: var(--padding-container-2) 0;
+    }
+    .filters__container{
+        width: 50%;
+        gap: var(--gutter-1);
+        display: flex;
+        align-items: flex-start;
+        justify-content: end;
+    }
+    .filterz{
+        cursor: pointer;
+        box-shadow: var(--shadow-tile);
+        width: 30px;
+        height: 30px;
+        background-color: #c1c1c1;
+        border-radius: var(--room-border-radius);
+    }
+    .filterz:first-child{
+        background-color: var(--color-disabled);
+    }
+    .filterz:nth-child(2){
+        background-color: var(--color-primary);
+    }
+    .filterz:nth-child(3){
+        background-color: var(--color-busy);
+    }
+    .filterz:last-child{
+background-color: var(--color-accent);
+    }
+    .select__container{
+        width: 50%;
+        height: 100%;
+    }
+    .selec__hotel{
+        width: 200px;
+        border: none;
+        box-shadow: var(--shadow-tile);
+        border-radius: var(--room-border-radius);
+        padding: .3em;
+    }
+    
     .hotel__container {
+        margin: 0 auto;
         background-color: var(--color-prime);
-        margin: var(--app-gutter) auto;
         border-radius: var(--btn-border-radius);
         width: 90vw;
         display: flex;
@@ -420,7 +467,6 @@
         transform: var(--on-hover-btn-1);
     }
 
-
     /* 
     .filters__container {
         display: flex;
@@ -527,21 +573,23 @@
 
     }*/
 
-    .the__container {
 
+
+
+
+    .the__container {
         overflow: hidden;
         position: fixed;
-        top: 11%;
+        top: 10%;
         left: 0;
-        width: 25px;
-        height: 30px;
+        box-shadow: var(--ui-drop-shadow-2);
         border-bottom-right-radius: var(--room-border-radius);
 
     }
 
     .container__toggle {
         position: absolute;
-        border-bottom-right-radius: var(--room-border-radius);
+        border-bottom-right-radius: 10px;
         background-color: var(--color-accent);
         color: var(--color-bg-1);
         cursor: pointer;
@@ -549,7 +597,7 @@
         top: 0;
         border: none;
         font-size: .9rem;
-        width: 25px;
+        width: 27px;
         height: 30px;
         box-shadow: var(--ui-drop-shadow-2);
         user-select: none;
@@ -561,7 +609,7 @@
     }
 
     .container__body {
-        height: 100%;
+        padding: var(--padding-container-1);
         width: 100%;
         display: flex;
         align-items: flex-start;
@@ -571,6 +619,8 @@
     }
 
     .rooms__container {
+        scroll-behavior: smooth;
+        overflow-y: scroll;
         border-top-right-radius: var(--btn-border-radius);
         border-bottom-right-radius: var(--room-border-radius);
         width: 500px;
@@ -593,15 +643,15 @@
 
     .disabled {
         background-color: var(--color-disabled);
+        pointer-events: none;
+        user-select: none;
     }
 
     .disabled:hover {
-        transform: 0px;
+        transform: none;
         pointer-events: none;
-        cursor: none;
 
     }
-
     .confirm__reserved {
         font-weight: bold;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -622,7 +672,8 @@
     }
 
     .new__resevedRoom {
-        margin: 0 auto;
+        /* margin: 0 auto; */
+        width: 4em;
         background: var(--color-primary);
         color: var(--color-bg-1);
         border-radius: var(--btn-border-radius);
@@ -650,25 +701,27 @@
         </div>
     </div>
 
-    <div class="tools__container">
+    
+
+    <div class="hotels__container">
+        <div class="tools__container">
+            <div class="select__container">
+                <select name="hotels" class="selec__hotel">
+                    <option value="1" class="option1">فندق ١</option>
+                    <option value="2" class="option2">فندق ٢</option>
+                    <option value="3" class="option3">فندق ٣</option>
+                    <option value="4" class="option4">فندق ٤</option>
+                    <option value="5" class="option5">فندق ٥</option>
+                </select>
+            </div>
         <div class="filters__container">
             <div class="filterz"></div>
             <div class="filterz"></div>
             <div class="filterz"></div>
             <div class="filterz"></div>
         </div>
-        <div class="select__container">
-            <select name="hotels" class="selec__hotel">
-                <option value="1" class="option1">فندق ١</option>
-                <option value="2" class="option2">فندق ٢</option>
-                <option value="3" class="option3">فندق ٣</option>
-                <option value="4" class="option4">فندق ٤</option>
-                <option value="5" class="option5">فندق ٥</option>
-            </select>
-        </div>
+        
     </div>
-
-    <div class="hotels__container">
         <a style="display:none" href="#" class="hotel__room"></a>
         <div class="hotel__container hotel${i1}">
             <h1 class="hotel__title">فندق شيراتون جزة
@@ -735,11 +788,10 @@
 
 
             // ============ Reservedd Rooms Container ==============
+
             let theContainer = `
             <div class="the__container">
-
-                <span class="container__toggle"></span>
-                
+                <span class="container__toggle" data-status="1"></span>
                 <div class="rooms__container">
                 <div class="container__body">
                         </div>
@@ -757,12 +809,35 @@
             `
 
             $("body").append(theContainer)
+            searchGuide()
+            function searchGuide() {
+        $(".container__toggle").click(function () {
+            $this = $(this)
+            console.log($this.data("status"))
+            if ($this.attr("data-status") == "1") {
+                $this.attr("data-status", "0")
+                $(".rooms__container").slideUp()
+                console.log("closed")
+                $this.parent().animate({
+                    width: "27px",
+                    height: "30px",
+                    borderBottomRightRadius: "10px"
+                })
+            } else if ($this.attr("data-status") == "0") {
+                $this.attr("data-status", "1")
+                $(".rooms__container").slideDown()
+                console.log("open")
+                
+                $this.parent().css({
+                    width: "fit-content",
+                    height: "fit-content",
+                    // borderRadius: "8px"
+                })
+                console.log("cloc")
 
-            $(".container__toggle").click(function () {
-                $(".rooms__container").slideToggle()
-            })
-
-
+            }
+        })
+    }
 
             // ============ RESERVATION FORM ============
             let reserveForm = `
@@ -834,9 +909,9 @@
 
 
             let allRooms = $(".hotel__room")
-            console.log(allRooms)
+            // console.log(allRooms)
             let reservedRoom = "rgb(231, 92, 66)"
-            let vacantRoom = "rgb(63, 173, 78)"
+            let vacantRoom = "rgb(124 149 161)"
 
             allRooms.click(function () {
                 $this = $(this)
@@ -849,7 +924,7 @@
                     })
                     let roomNum = $this.data("room")
                     let newResevedRoom = `
-                <div class="new__resevedRoom">${roomNum}</div>
+                <div class="new__resevedRoom" data-room="${roomNum}">${roomNum}</div>
                 `
                     $(".container__body").append(newResevedRoom)
                     let allReservedRooms = $(".new__resevedRoom")
@@ -861,17 +936,21 @@
                         backgroundColor: vacantRoom
                     })
 
-                    $(".new__resevedRoom").filter(el => $(el).data("room") == $this.data("room"))
+                     $(".new__resevedRoom").filter((i,el) => {
+                        let removedEl = $(el).data("room") != $this.data("room")
+                        $(".container__body").html($(removedEl))
+                        console.log(removedEl)
+                    })
                 }
 
             })
 
 
 
-            allReservedRooms.click(function () {
-                let $this = $(this)
-                $this.fadeOut()
-            })
+            // allReservedRooms.click(function () {
+            //     let $this = $(this)
+            //     $this.fadeOut()
+            // })
 
 
 

@@ -67,6 +67,9 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: var(--color-base-1)
     }
+    a{
+        text-decoration: none;
+    }
 
     #site {
         display: contents
@@ -91,13 +94,18 @@
 
     .report__go {
         height: 100%;
-        padding: var(--padding-text-1);
         color: var(--color-font-1);
+    }
+    .report__go p {
         transition: var(--trans-1);
         font-size: var(--fs-1);
+        padding: .5em var(--padding-container-1);
+        border-radius: var(--room-border-radius);
+        background-color: #7c95a1;
+        
     }
 
-    .report__go:hover {
+    .report__go p:hover {
         opacity: var(--on-hover-txt-1);
     }
 
@@ -133,7 +141,7 @@
     .hotels__container {
         width: 100vw;
         position: relative;
-        padding: 8em 0;
+        padding: 8em 0 1em;
         display: flex;
         align-items: flex-start;
         flex-direction: column;
@@ -147,19 +155,26 @@
         padding: var(--padding-container-2) 0;
     }
 
-    .filters__container {
+    .hotel__summary_container {
         width: 50%;
-        gap: var(--gutter-1);
-        display: flex;
-        align-items: flex-start;
-        justify-content: end;
-    }
-
-    .filterz {
         display: flex;
         align-items: center;
-        font-size: .8rem;
         justify-content: center;
+        gap: var(--gutter-1);
+    }
+.summary__label{
+    font-size: .6rem;
+    width: 100%;
+
+}
+    .hotel__summary {
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        font-size: .8rem;
         font-weight: 600;
         color: var(--color-bg-1);
         cursor: pointer;
@@ -168,24 +183,26 @@
         height: 30px;
         background-color: #c1c1c1;
         border-radius: var(--room-border-radius);
-        padding: .2em .5em;
-        text-align: center;
+        padding: .6em .8em;
+        gap: 3px;
+        transition: var(--trans-1);
     }
-
-    .filterz:first-child {
-        background-color: var(--color-disabled);
+    .hotel__summary:hover{
+cursor: pointer;
+transform: var(--on-hover-btn-1);
     }
-
-    .filterz:nth-child(2) {
-        background-color: var(--color-primary);
+    
+    .hotel__summary:first-child {
+background-color: var(--color-secondary);
     }
-
-    .filterz:nth-child(3) {
-        background-color: var(--color-busy);
+    .hotel__summary:nth-child(2) {
+background-color: var(--color-disabled);
     }
-
-    .filterz:last-child {
-        background-color: var(--color-accent);
+    .hotel__summary:nth-child(3) {
+background-color: var(--color-primary);
+    }
+    .hotel__summary:last-child {
+background-color: var(--color-busy);
     }
 
     .select__container {
@@ -258,16 +275,36 @@
         justify-content: center;
         flex-wrap: wrap;
         position: relative;
-        padding: var(--padding-container-1) calc(var(--padding-container-1)*3);
+        padding: var(--padding-container-2) calc(var(--padding-container-1)*2);
         border-radius: var(--btn-border-radius);
-        /* width: 95%; */
-        min-height: 5em;
+        min-height: 2em;
+        width: 90%;
+        overflow: hidden;
+
+
+    }
+    .storey__body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
     }
 
-    .storey::before {
+    .show__title{
+        transform: translate(0, 0px) !important;
+    }
+    .storey__title{
+        color: var(--color-base-1);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        transition: var(--trans-1);
+        transform: translate(0, -70px);
+    }
+    .storey__num {
         text-align: center;
         padding: calc(var(--padding-container-1)*.2);
-        content: attr(data-storey);
         background-color: var(--color-accent);
         border-bottom-left-radius: var(--room-border-radius);
         border-top-right-radius: var(--room-border-radius);
@@ -277,6 +314,7 @@
         position: absolute;
         top: 0%;
         right: 0px;
+        cursor: pointer;
         /* border: var(--color-primary-2) solid 1px; */
 
 
@@ -284,7 +322,7 @@
     }
 
     .hotel__room {
-
+user-select: none;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -387,12 +425,6 @@
 
 
 
-
-
-
-
-
-
     .form {
         transition: .4s;
         box-shadow: var(--ui-drop-shadow-2);
@@ -490,96 +522,59 @@
         transform: var(--on-hover-btn-1);
     }
 
-    /* 
-    .filters__container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
-        padding: .5em 1.4em;
-        height: fit-content;
-        background-color: rgba(8, 61, 8, 0.11);
-    }
-
-    .text__label {
-        font-size: 1.5rem;
-        margin: 0 5px;
-        color: #fff;
-        font-weight: bold;
-
-    }
-
-   .filter_selection {
-        padding: calc(var(--pad)*.3);
-        margin: calc(var(--pad)*.2);
-        cursor: pointer;
-        transition: .2s;
-
-    }
-
-    .filter_selection:hover {
-        background-color: #093f2dd8;
-
-    } 
-
-    .color__square {
-        width: 20px;
-        height: 20px;
-        display: inline-block;
-    }
-
-    .green {
-        background-color: var(--vacant-color);
-    }
-
-    .red {
-        background-color: var(--busy-color);
-    }
-
-    .yellow {
-        background: #d1f11b;
-
-    }
-
-  */
+   
 
 
 
-    /* ============ Form Styling ============== */
-    /*
-
-
-
-
-
+.bg__dim{
+    width: 100vw;
+    height: 100vh;
+background-color: #0405065f;
+position: fixed;
+left: 0;
+top: 500%;
+z-index: 3;
+transition: var(--trans-1);
+}
     .bar__container {
 
         position: fixed;
-        top: 50%;
+        top: -120%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 50%;
-        background: #ddd
+        background: var(--color-secondary);
+        z-index: 4;
+        box-shadow: var(--ui-drop-shadow-1);
+        color: var(--color-base-1);
+        border-radius: var(--btn-border-radius);
+        overflow: hidden;
     }
 
     .bar {
-        box-shadow: 1px 1px 2px #000;
-        transition: .4s;
-        /* width: 100%; 
-    background-color: #fff;
+        transition: var(--trans-1);
+    background-color: var(--color-disabled);
     padding: 5px;
     position: relative;
-
+    
+}
+.bar::after{
+        content: attr(data-percent);
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--color-bg-1);
     }
-
+    
     .progress {
-        width: 0%;
+        width: 80%;
         height: 30px;
-        background-color: #04AA6D;
+        background-color: var(--color-accent);
         text-align: center;
         line-height: 30px;
-        color: white;
         position: relative;
+        transition: var(--trans-1);
     }
 
     .title {
@@ -594,46 +589,58 @@
         transform: translate(-50%, -50%);
         z-index: 2;
 
-    }*/
+    }
 
 
 
 
 
     .the__container {
-        overflow: hidden;
+        /* overflow: hidden; */
         position: fixed;
-        top: 10%;
+        height: 100vh;
+        width: 15px;
+        top: 0;
         left: 0;
-        box-shadow: var(--ui-drop-shadow-2);
+        /* box-shadow: var(--ui-drop-shadow-2);
         border-bottom-right-radius: var(--room-border-radius);
+        background-color: aquamarine; */
 
     }
 
     .container__toggle {
         position: absolute;
         border-bottom-right-radius: 10px;
-        background-color: var(--color-accent);
+        border-top-right-radius: 10px;
+        background-color: var(--color-bg-1);
         color: var(--color-bg-1);
         cursor: pointer;
-        left: 0;
-        top: 0;
+        right: -10px;
+        top: 20%;
         border: none;
         font-size: .9rem;
-        width: 27px;
-        height: 30px;
-        box-shadow: var(--ui-drop-shadow-2);
+        width: 15px;
+        height: 70vh;
+        /* box-shadow: 20px 10px 10px 0px #000; */
         user-select: none;
         transition: var(--trans-1)
     }
+    .container__toggle::after {
+    content: "<";
+    color: var(--color-font-1);
+    position: absolute;
+    top: 50%;
+    right: 50%;
 
+    }
     .container__toggle:hover {
-        opacity: var(--on-hover-txt-1);
+        /* opacity: var(--on-hover-txt-1); */
     }
 
     .container__body {
         padding: var(--padding-container-1);
         width: 100%;
+        margin: 6em auto 0;
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
@@ -646,15 +653,14 @@
         overflow-y: scroll;
         border-top-right-radius: var(--btn-border-radius);
         border-bottom-right-radius: var(--room-border-radius);
-        width: 500px;
-        height: 500px;
+        width: 0;
+        height: 100%;
+        width: 100%;
         background-color: var(--color-bg-1);
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
         flex-wrap: wrap;
-
-        padding: var(--padding-container-1);
     }
 
     .holder__btn_container {
@@ -662,6 +668,7 @@
         text-align: center;
         width: 100%;
         align-self: flex-end;
+
     }
 
     .disabled {
@@ -677,6 +684,7 @@
     }
 
     .confirm__reserved {
+        opacity: 0;
         font-weight: bold;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: #fff;
@@ -697,6 +705,7 @@
 
     .new__resevedRoom {
         /* margin: 0 auto; */
+        user-select: none;
         width: 4em;
         background: var(--color-busy);
         color: var(--color-bg-1);
@@ -715,15 +724,29 @@
     .rooms__container::-webkit-scrollbar {
         display: none;
     }
+
+
 </style>
 
 <body>
+    <div class="bg__dim"></div>
+    <div class="bar__container">
+        <p class="title">فندق جديد تحت الإنشاء<span class="roomCountComp"></span></p>
+        <div class="bar" data-percent="40/100">
+            <!-- <p class="percent"></p> -->
+            <div class="progress">
+
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="header__container">
-        <div class="title__container">
-            <p class="app__title">شركة المسافرين</p>
+        <a href="/" class="title__container">
+            <p class="app__title">شركة ل ا ق و ن</p>
             <p class="small__text">لخدمات السفر والاعتمار</p>
-        </div>
+        </a>
         <div class="report__go">
             <p class="">اذهب للتقاير</p>
         </div>
@@ -742,13 +765,26 @@
                     <option value="5" class="option5">فندق ٥</option>
                 </select>
             </div>
-            <div class="filters__container">
-                <div class="filterz">256</div>
-                <div class="filterz">354</div>
-                <div class="filterz">6</div>
-                <div class="filterz">78</div>
+            <div class="hotel__summary_container">
+                <div class="hotel__summary">
+                    <label class="summary__label">الكل</label>
+                    <div class="summary__figure">213</div>
+                </div>
+                <div class="hotel__summary">
+                    <label class="summary__label">محجوز</label>
+                    <div class="summary__figure">545</div>
+                </div>
+                <div class="hotel__summary">
+                    <label class="summary__label">خالي</label>
+                    <div class="summary__figure">653</div>
+                </div>
+                <div class="hotel__summary">
+                    <label class="summary__label">آخر حجز</label>
+                    <div class="summary__figure">23</div>
+                </div>
             </div>
-
+        
+         </div>
         </div>
         <a style="display:none" href="#" class="hotel__room"></a>
         <div class="hotel__container hotel__container1 hotel${i1}">
@@ -756,15 +792,30 @@
             </h1>
             <div class="chart__container chart__container1">
                 <div class="storey story_1" data-hotel="1" data-storey="1">
+                    <span class="storey__num">5</span>
+<span class="storey__title">الدور الأول</span>
+
+                    <div class="storey__body"></div>
 
                 </div>
-                <div class="storey story_1" data-hotel="1" data-storey="2">
+                <div class="storey story_1" data-hotel="1" data-storey="1">
+                    <span class="storey__num">5</span>
+                    <div class="storey__body"></div>
 
                 </div>
-                <div class="storey story_1" data-hotel="1" data-storey="3">
+                <div class="storey story_1" data-hotel="1" data-storey="1">
+                    <span class="storey__num">5</span>
+                    <div class="storey__body"></div>
 
                 </div>
-                <div class="storey story_1" data-hotel="1" data-storey="4">
+                <div class="storey story_1" data-hotel="1" data-storey="1">
+                    <span class="storey__num">5</span>
+                    <div class="storey__body"></div>
+
+                </div>
+                <div class="storey story_1" data-hotel="1" data-storey="1">
+                    <span class="storey__num">5</span>
+                    <div class="storey__body"></div>
 
                 </div>
 
@@ -828,7 +879,7 @@
             const submitFn = () => {
                 let apiInput = $(".apikey__input").val()
                 if (apiKey == apiInput) {
-                    console.log(apiInput)
+
                     $(".popup__back").fadeOut()
                 }
             }
@@ -863,28 +914,21 @@
             function searchGuide() {
                 $(".container__toggle").click(function () {
                     $this = $(this)
-                    console.log($this.data("status"))
+
                     if ($this.attr("data-status") == "1") {
+                        $(".the__container").animate({"width": '+=600px'})
                         $this.attr("data-status", "0")
-                        $(".rooms__container").slideUp()
-                        console.log("closed")
-                        $this.parent().animate({
-                            width: "27px",
-                            height: "30px",
-                            borderBottomRightRadius: "10px"
+                        $(".confirm__reserved").css({
+                            transform: "translateY(0)",
+                            opacity: "1"
                         })
+                        
                     } else if ($this.attr("data-status") == "0") {
+                        $(".the__container").animate({"width": '-=600px'})
                         $this.attr("data-status", "1")
-                        $(".rooms__container").slideDown()
-                        console.log("open")
-
-                        $this.parent().css({
-                            width: "fit-content",
-                            height: "fit-content",
-                            // borderRadius: "8px"
-                        })
-                        console.log("cloc")
-
+                        $(".confirm__reserved").css({
+                            transform: "translateY(100px)",
+})
                     }
                 })
             }
@@ -917,7 +961,7 @@
                 })
             })
             $(".cancel").click(() => {
-                console.log("removed!")
+
                 $(".form").css({
                     top: "-10%"
                 })
@@ -926,7 +970,7 @@
             $(".confirm").click(() => {
                 let fromDate = $(".from_date").val()
                 let toDate = $(".to_date").val()
-                console.log(fromDate, toDate)
+
             })
 
 
@@ -934,13 +978,22 @@
 
 
             // =================== ForLOOP =====================
+//TODO: Rfactor JS 
+//TODO: reserved rooms contianer resizable  
 
 
-
+$(".storey__num").click(function(){
+    $this = $(this)
+$this.siblings(".storey__body").slideToggle()
+$this.siblings(".storey__title").toggleClass("show__title")
+// if($this.siblings(".storey__body").width() > 100){
+    // $this.parent().prepend(`<p>الدور الأول</p>`)
+// }
+})
             $(".selec__hotel").change(function () {
                 $this = $(this)
                 let hotelSelected = $this.find(":selected").val()
-                console.log(hotelSelected)
+
                 if (hotelSelected == 2) {
                     $(".hotel__container1").hide()
                     $(".hotel__container2").show()
@@ -954,7 +1007,7 @@
             })
 
             let allStoreys1 = $(".chart__container1 .storey").length
-            let allStoreys2 = $(".chart__container2 .storey").length
+            // let allStoreys2 = $(".chart__container2 .storey").length
 
             for (let i = 0; i < allStoreys1; i++) {
                 let thisStorey = $(".storey").eq(i)
@@ -965,7 +1018,7 @@
                         data-booked="${""}">
                         <p style="margin:auto">${y+1}</p>
                     </div>`
-                    thisStorey.append(el)
+                    thisStorey.find(".storey__body").append(el)
 
                     if (y % 5 == 0) {
                         $(".storey").eq(i).find(".hotel__room:last-child").addClass("disabled")
@@ -975,34 +1028,33 @@
             }
 
 
-            for (let i = 0; i < allStoreys2; i++) {
-                let thisStorey = $(".storey").eq(i)
-                for (let y = 0; y < 100; y++) {
-                    let el = ` <div class="hotel__room" style="background:${""}" data-room="غرفة ${y+1}"
-                        data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/?"
-                        data-startdate="${""}" data-deliverydate="${""}"
-                        data-booked="${""}">
-                        <p style="margin:auto">${y+1}</p>
-                    </div>`
-                    thisStorey.append(el)
+            // for (let i = 0; i < allStoreys2; i++) {
+            //     let thisStorey = $(".storey").eq(i)
+            //     for (let y = 0; y < 100; y++) {
+            //         let el = ` <div class="hotel__room" style="background:${""}" data-room="غرفة ${y+1}"
+            //             data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/?"
+            //             data-startdate="${""}" data-deliverydate="${""}"
+            //             data-booked="${""}">
+            //             <p style="margin:auto">${y+1}</p>
+            //         </div>`
+            //         thisStorey.append(el)
 
-                    if (y % 5 == 0) {
-                        $(".storey").eq(i).find(".hotel__room:last-child").addClass("disabled")
-                    }
+            //         if (y % 5 == 0) {
+            //             $(".storey").eq(i).find(".hotel__room:last-child").addClass("disabled")
+            //         }
 
-                }
-            }
+            //     }
+            // }
 
 
             let allRooms = $(".hotel__room")
-            // console.log(allRooms)
+
             let reservedRoom = "rgb(231, 92, 66)"
             let vacantRoom = "rgb(124 149 161)"
 
-            allRooms.click(function () {
+            allRooms.click(function (e) {
                 $this = $(this)
                 if ($this.css("backgroundColor") != reservedRoom) {
-                    console.log($this.css("backgroundColor"))
 
                     $this.attr("data-res", true)
                     $this.css({
@@ -1010,18 +1062,21 @@
                     })
                     let roomNum = $this.data("room")
                     let newResevedRoom = `
-                <div class="new__resevedRoom" style="opacity:0" data-room="${roomNum}">${roomNum}</div>
+                    <div class="new__resevedRoom" style="opacity:0" data-room="${roomNum}">${roomNum}</div>
                 `
-                    $(".container__body").append(newResevedRoom)
-                    $(".new__resevedRoom:last-child").animate({
-                        opacity: "1"
-                    }, 50)
-                    let allReservedRooms = $(".new__resevedRoom")
-                    console.log(allReservedRooms)
-                    allReservedRooms.click(function () {
-                        let $this = $(this)
-                        $this.fadeOut()
-                        let filtered1 = allRooms.filter((i, v) => $(v).data("room") == $(this)
+                $(".container__body").append(newResevedRoom)
+                $(".new__resevedRoom:last-child").animate({
+                    opacity: "1"
+                }, 300)
+                
+                let allReservedRooms = $(".new__resevedRoom")
+                let lastAdded = $(allReservedRooms).last()
+                let sameRoom = allReservedRooms.filter((i,v)=>(lastAdded.data("room") == $(v).data("room"))).length > 1 ? lastAdded.remove():
+
+                allReservedRooms.click(function () {
+                    let $this = $(this)
+                    $this.fadeOut(300).remove()
+                    let filtered1 = allRooms.filter((i, v) => $(v).data("room") == $(this)
                             .data("room"))
                         filtered1.eq(0).css({
                             backgroundColor: vacantRoom
@@ -1031,18 +1086,20 @@
 
                 } else {
                     $this.attr("data-res", false)
+                    // console.log(allReservedRooms)
+            
                     $this.css({
                         backgroundColor: vacantRoom
                     })
                     var allReserved = $(".new__resevedRoom")
                     filtered2 = allReserved.filter((i, v) => $(v).data("room") == $this
                         .data("room"))
-                    filtered2.eq(0).remove().fadeOut()
-                    console.log(filtered2)
+                    filtered2.eq(0).fadeOut(300).remove()
                 }
 
             })
 
+            $(".storey story_1").click((e)=>{console.log(e.target)})
 
             // allReservedRooms.click(function () {
             //     let $this = $(this)
@@ -1093,7 +1150,15 @@
             // }
 
 
-
+$(".hotel__title").click(function(){
+    console.log("d")
+$(".bg__dim").animate({
+    top: "0"
+})
+$(".bar__container").animate({
+    top: "50%"
+})
+})
 
             // =================== DOM ELEMENTS =====================
             //             let reservedRoom = "rgb(187, 42, 42)"

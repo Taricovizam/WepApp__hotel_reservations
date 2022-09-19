@@ -58,7 +58,7 @@
 
     *,
     *::after,
-    *::before{
+    *::before {
         user-select: none;
     }
 
@@ -72,7 +72,8 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: var(--color-base-1)
     }
-    a{
+
+    a {
         text-decoration: none;
     }
 
@@ -85,7 +86,7 @@
     }
 
     .header__container {
-        /* padding: var(--padding-container-1) ; */
+        padding: .5em 0;
         margin: auto;
         width: 100%;
         display: flex;
@@ -101,13 +102,14 @@
         height: 100%;
         color: var(--color-font-1);
     }
+
     .report__go p {
         transition: var(--trans-1);
         font-size: var(--fs-1);
         padding: .5em var(--padding-container-1);
         border-radius: var(--room-border-radius);
         background-color: #7c95a1;
-        
+
     }
 
     .report__go p:hover {
@@ -168,13 +170,15 @@
         justify-content: center;
         gap: var(--gutter-1);
     }
-.summary__label{
-    font-size: .6rem;
-    width: 100%;
 
-}
+    .summary__label {
+        font-size: .6rem;
+        width: 100%;
+
+    }
+
     .hotel__summary {
-        
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -194,25 +198,30 @@
         transition: var(--trans-1);
 
     }
-    .hotel__summary> *{
+
+    .hotel__summary>* {
         cursor: pointer;
     }
-    .hotel__summary:hover{
-cursor: pointer;
-transform: var(--on-hover-btn-1);
+
+    .hotel__summary:hover {
+        cursor: pointer;
+        transform: var(--on-hover-btn-1);
     }
-    
+
     .hotel__summary:first-child {
-background-color: var(--color-secondary);
+        background-color: var(--color-secondary);
     }
+
     .hotel__summary:nth-child(2) {
-background-color: var(--color-disabled);
+        background-color: var(--color-disabled);
     }
+
     .hotel__summary:nth-child(3) {
-background-color: var(--color-primary);
+        background-color: var(--color-primary);
     }
+
     .hotel__summary:last-child {
-background-color: var(--color-busy);
+        background-color: var(--color-busy);
     }
 
     .select__container {
@@ -233,7 +242,8 @@ background-color: var(--color-busy);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     }
-/* .hotel__wrapper{
+
+    /* .hotel__wrapper{
     background-color: red;
     display: flex;
     align-items: center;
@@ -299,7 +309,8 @@ background-color: var(--color-busy);
 
 
     }
-    .storey__body{
+
+    .storey__body {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -307,17 +318,19 @@ background-color: var(--color-busy);
         width: 100%;
     }
 
-    .show__title{
-        transform: translate(0, 0px) !important;
+    .show__title {
+        transform: translate(0%, -10%) !important;
     }
-    .storey__title{
+
+    .storey__title {
         color: var(--color-base-1);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 30px;
         font-weight: bold;
         transition: var(--trans-1);
-        transform: translate(0, -70px);
+        transform: translate(0, -80px);
     }
+
     .storey__num {
         text-align: center;
         padding: calc(var(--padding-container-1)*.2);
@@ -338,7 +351,7 @@ background-color: var(--color-busy);
     }
 
     .hotel__room {
-user-select: none;
+        user-select: none;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -539,17 +552,17 @@ user-select: none;
         transform: var(--on-hover-btn-1);
     }
 
-.bg__dim{
-    width: 100vw;
-    height: 100vh;
-background-color: #0405065f;
-position: fixed;
-left: 0;
-top: 500%;
-z-index: 3;
-transition: var(--trans-1);
-}
-   
+    .bg__dim {
+        width: 100vw;
+        height: 100vh;
+        background-color: #0405065f;
+        position: fixed;
+        left: 0;
+        top: 500%;
+        z-index: 3;
+        transition: var(--trans-1);
+    }
+
     .the__container {
         /* overflow: hidden; */
         position: fixed;
@@ -563,7 +576,7 @@ transition: var(--trans-1);
 
     }
 
-    .container__resize{
+    .container__resize {
         position: absolute;
         border-bottom-left-radius: 10px;
         border-top-left-radius: 10px;
@@ -578,6 +591,7 @@ transition: var(--trans-1);
         /* box-shadow: 20px 10px 10px 0px #000; */
         transition: var(--trans-1)
     }
+
     .container__toggle {
         position: absolute;
         border-bottom-right-radius: 10px;
@@ -595,14 +609,30 @@ transition: var(--trans-1);
         user-select: none;
         transition: var(--trans-1)
     }
+
     .container__toggle::after {
-    content: "<";
-    color: var(--color-font-1);
-    position: absolute;
-    top: 50%;
-    right: 50%;
+        content: "";
+        color: var(--color-font-1);
+        position: absolute;
+        top: 50%;
+        right: 50%;
 
     }
+
+    .container__toggle.rotate::after {
+        transform: rotate(180deg);
+    }
+
+    .container__toggle::after {
+        content: "\00AB";
+        color: var(--color-font-1);
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        font-size: 30px;
+        transition: var(--trans-1);
+    }
+
     .container__toggle:hover {
         /* opacity: var(--on-hover-txt-1); */
     }
@@ -696,44 +726,83 @@ transition: var(--trans-1);
         display: none;
     }
 
-.shake{
-    animation: shake .5s;
-}
-.shake2 {
-  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97);
-}
+    .shake {
+        animation: shake .5s;
+    }
 
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-@keyframes shake2 {
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-  
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
+    .shake2 {
+        animation: shake 0.5s cubic-bezier(.36, .07, .19, .97);
+    }
 
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
+    @keyframes shake {
+        0% {
+            transform: translate(1px, 1px) rotate(0deg);
+        }
 
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
+        10% {
+            transform: translate(-1px, -2px) rotate(-1deg);
+        }
 
+        20% {
+            transform: translate(-3px, 0px) rotate(1deg);
+        }
+
+        30% {
+            transform: translate(3px, 2px) rotate(0deg);
+        }
+
+        40% {
+            transform: translate(1px, -1px) rotate(1deg);
+        }
+
+        50% {
+            transform: translate(-1px, 2px) rotate(-1deg);
+        }
+
+        60% {
+            transform: translate(-3px, 1px) rotate(0deg);
+        }
+
+        70% {
+            transform: translate(3px, 1px) rotate(-1deg);
+        }
+
+        80% {
+            transform: translate(-1px, -1px) rotate(1deg);
+        }
+
+        90% {
+            transform: translate(1px, 2px) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(1px, -2px) rotate(-1deg);
+        }
+    }
+
+    @keyframes shake2 {
+
+        10%,
+        90% {
+            transform: translate3d(-1px, 0, 0);
+        }
+
+        20%,
+        80% {
+            transform: translate3d(2px, 0, 0);
+        }
+
+        30%,
+        50%,
+        70% {
+            transform: translate3d(-4px, 0, 0);
+        }
+
+        40%,
+        60% {
+            transform: translate3d(4px, 0, 0);
+        }
+    }
 </style>
 
 <body>
@@ -778,10 +847,10 @@ transition: var(--trans-1);
                     <div class="summary__figure">23</div>
                 </div>
             </div>
-        
-         </div>
-         <!-- <div class="hotel__wrapper"> -->
-        <div class="hotel__container hotel__container1 hotel${i1}">
+
+        </div>
+        <!-- <div class="hotel__wrapper"> -->
+        <!-- <div class="hotel__container hotel__container1 hotel${i1}">
             <h1 class="hotel__title">فندق شيراتون جدة</h1>
             <div class="chart__container chart__container1">
                 <div class="storey story_1" data-hotel="1" data-storey="1">
@@ -794,9 +863,9 @@ transition: var(--trans-1);
 
             </div>
 
-         </div>
+        </div> 
         <div class="hotel__container hotel__container1 hotel${i1}">
-            <!-- style="opacity: 0;transform:translate(150%, 0)" -->
+            style="opacity: 0;transform:translate(150%, 0)"
             <h1 class="hotel__title">فندق شيراتون دة</h1>
             <div class="chart__container chart__container1">
                 <div class="storey story_1" data-hotel="1" data-storey="1">
@@ -809,7 +878,7 @@ transition: var(--trans-1);
 
             </div>
 
-         </div>
+        </div> -->
         <!-- </div> -->
     </div>
 
@@ -860,7 +929,7 @@ transition: var(--trans-1);
 
             let theContainer = `
             <div class="the__container">
-                <span class="container__toggle" data-status="0"></span>
+                <span class="container__toggle" data-status="0"><i class="toggle__mark fa-solid fa-chevrons-right"></i></span>
                 <span class="container__resize"></span>
                 <div class="rooms__container">
                 <div class="container__body">
@@ -881,83 +950,96 @@ transition: var(--trans-1);
             $("body").append(theContainer)
             toggleOnClick()
             containerResize()
-let contWidth = 600;
-function containerResize(){
-    let resizedContainer = $(".the__container"),
-    resizer = $(".container__resize");
-    dragMouseDown()
-function dragMouseDown(){
-    resizer.mousedown(e => {
-        console.log("am down")
-    let dragY = e.clientX;
-    $(document).mousemove(e => {
-        console.log("am moving")
-        resizedContainer.css({width: `${resizedContainer.outerWidth() + e.clientX - dragY + "px"}`})
-        dragY = e.clientX;
-        console.log(dragY)
-        contWidth = dragY
-        if(contWidth < 190){
-            $(".confirm__reserved").css({
-                            transform: "translateY(100px)"})
-                        }else{
-            $(".confirm__reserved").css({
-                transform: "translateY(0)",
-                            opacity: "1"
+            let contWidth = 600;
+
+            function containerResize() {
+                let resizedContainer = $(".the__container"),
+                    resizer = $(".container__resize");
+                dragMouseDown()
+
+                function dragMouseDown() {
+                    resizer.mousedown(e => {
+                        let dragY = e.clientX;
+                        $(document).mousemove(e => {
+                            resizedContainer.css({
+                                width: `${resizedContainer.outerWidth() + e.clientX - dragY + "px"}`
+                            })
+                            dragY = e.clientX;
+                            contWidth = dragY
+                            if (contWidth < 190) {
+                                $(".confirm__reserved").css({
+                                    transform: "translateY(100px)"
+                                })
+                                $(".container__toggle").addClass("rotate")
+
+                            } else {
+                                $(".confirm__reserved").css({
+                                    transform: "translateY(0)",
+                                    opacity: "1"
+                                })
+                                $(".container__toggle").addClass("rotate")
+
+
+                            }
                         })
+                    })
+                }
 
-        }
-    })
-})
-}
+                $(document).mouseup(() => {
+                    resizer.unbind("mousedown");
+                    $(document).unbind("mousemove");
 
-$(document).mouseup(()=> {
-    console.log("am up")
-    resizer.unbind("mousedown");
-$(document).unbind("mousemove");
+                    setTimeout(() => {
+                        dragMouseDown()
 
-setTimeout(()=>{
-    console.log("u can now")
-    dragMouseDown()
-    
-},500)
-})
+                    }, 500)
+                })
 
-}
-      
+            }
 
-function toggleOnClick() {
+
+            function toggleOnClick() {
                 $(".container__toggle").click(function () {
                     $this = $(this)
                     $thisContainer = $this.parent()
                     $thisWidth = $this.parent().width()
-                    if($thisWidth > 15){
+                    if ($thisWidth > 15) {
 
-                        $thisContainer.animate({"width": `15px`})
-                        $this.attr("data-status", "0")
-                        $(".confirm__reserved").css({
-                            transform: "translateY(100px)"})
-                        }else{
-
-
-                    console.log($thisContainer, $thisWidth, contWidth)
-                    if ($this.attr("data-status") == "0") {
-                        $thisContainer.animate({"width": `+=${contWidth}px`})
-                        $this.attr("data-status", "1")
-                        if(contWidth>190){
-                        $(".confirm__reserved").css({
-                            transform: "translateY(0)",
-                            opacity: "1"
+                        $thisContainer.animate({
+                            "width": `15px`
                         })
-                    }
-                        
-                    } else if ($this.attr("data-status") == "1") {
-                        $thisContainer.animate({"width": `15px`})
                         $this.attr("data-status", "0")
                         $(".confirm__reserved").css({
-                            transform: "translateY(100px)"})
-                    }
+                            transform: "translateY(100px)"
+                        })
+                        $this.removeClass("rotate")
+                    } else {
 
-                }
+                        $this.addClass("rotate")
+
+                        if ($this.attr("data-status") == "0") {
+                            $thisContainer.animate({
+                                "width": `+=${contWidth}px`
+                            })
+                            $this.attr("data-status", "1")
+                            if (contWidth > 190) {
+                                $(".confirm__reserved").css({
+                                    transform: "translateY(0)",
+                                    opacity: "1"
+                                })
+                            }
+
+                        } else if ($this.attr("data-status") == "1") {
+                            $thisContainer.animate({
+                                "width": `15px`
+                            })
+                            $this.attr("data-status", "0")
+                            $(".confirm__reserved").css({
+                                transform: "translateY(100px)"
+                            })
+                        }
+
+                    }
 
                 })
             }
@@ -1001,26 +1083,25 @@ function toggleOnClick() {
                 let nowTime = new Date().toLocaleTimeString()
                 // $(".to_date").toggleClass("shake").css({border:"1px solid red"})
                 // $(".from_date").toggleClass("shake2").css({border:"1px solid red"})
-                console.log("F")
             })
 
 
 
             // =================== ForLOOP =====================
-//TODO: Rfactor JS 
-//TODO: GET Rooms
-//TODO: POST request
-//TODO: When delete summary entity
-//TODO: Preserve data in the app: last reservations session: no_of_rooms, date, time, inv_ref
+            //TODO: Rfactor JS 
+            //TODO: GET Rooms
+            //TODO: POST request
+            //TODO: Check and get data for instance that has repo
+            //TODO: Preserve data in the app: last reservations session: no_of_rooms, date, time, inv_ref
 
 
 
-$(".storey__num").click(function(){
-    $this = $(this)
-$this.siblings(".storey__body").slideToggle()
-$this.siblings(".storey__title").toggleClass("show__title")
+            $(".storey__num").click(function () {
+                $this = $(this)
+                $this.siblings(".storey__body").slideToggle()
+                $this.siblings(".storey__title").toggleClass("show__title")
 
-})
+            })
             $(".selec__hotel").change(function () {
                 $this = $(this)
                 let hotelSelected = $this.find(":selected").val()
@@ -1076,30 +1157,31 @@ $this.siblings(".storey__title").toggleClass("show__title")
                     let newResevedRoom = `
                     <div class="new__resevedRoom" style="opacity:0" data-room="${roomNum}">${roomNum}</div>
                 `
-                $(".container__body").append(newResevedRoom)
-                $(".new__resevedRoom:last-child").animate({
-                    opacity: "1"
-                }, 300)
-                
-                let allReservedRooms = $(".new__resevedRoom")
-                let lastAdded = $(allReservedRooms).last()
-                let sameRoom = allReservedRooms.filter((i,v)=>(lastAdded.data("room") == $(v).data("room"))).length > 1 ? lastAdded.remove():
+                    $(".container__body").append(newResevedRoom)
+                    $(".new__resevedRoom:last-child").animate({
+                        opacity: "1"
+                    }, 300)
 
-                allReservedRooms.click(function () {
-                    let $this = $(this)
-                    $this.fadeOut(300).remove()
-                    let filtered1 = allRooms.filter((i, v) => $(v).data("room") == $(this)
-                            .data("room"))
-                        filtered1.eq(0).css({
-                            backgroundColor: vacantRoom
+                    let allReservedRooms = $(".new__resevedRoom")
+                    let lastAdded = $(allReservedRooms).last()
+                    let sameRoom = allReservedRooms.filter((i, v) => (lastAdded.data("room") == $(v)
+                            .data("room"))).length > 1 ? lastAdded.remove() :
+
+                        allReservedRooms.click(function () {
+                            let $this = $(this)
+                            $this.fadeOut(300).remove()
+                            let filtered1 = allRooms.filter((i, v) => $(v).data("room") == $(this)
+                                .data("room"))
+                            filtered1.eq(0).css({
+                                backgroundColor: vacantRoom
+                            })
                         })
-                    })
 
 
                 } else {
                     $this.attr("data-res", false)
                     // console.log(allReservedRooms)
-            
+
                     $this.css({
                         backgroundColor: vacantRoom
                     })
@@ -1113,7 +1195,7 @@ $this.siblings(".storey__title").toggleClass("show__title")
 
 
             // =================== DOM ELEMENTS =====================
-       
+
             // let allHotels = [];
             // let allRooms = $(".hotel__room")
             let summaryEntity = "le_workflow-type-entity-7"
@@ -1138,81 +1220,102 @@ $this.siblings(".storey__title").toggleClass("show__title")
                 })
             })
 
-            $(".hotel__summary:nth-child(1)").click(()=>{
+            $(".hotel__summary:nth-child(1)").click(() => {
                 $(".hotel__container:nth-child(2)").css({
-    transform: "translate(150%, 0px)",
-            }).fadeOut()
+                    transform: "translate(150%, 0px)",
+                }).fadeOut()
                 $(".hotel__container:nth-child(3)").css({
-    transform: "translate(0%, 0px)",
-    opacity: 1
-            }).fadeIn()
+                    transform: "translate(0%, 0px)",
+                    opacity: 1
+                }).fadeIn()
             })
 
-    
-
-
-            // let hotelStruct = `
-            // <div class="hotel__container hotel__container1 hotel_${hotelNum}">
-            // <h1 class="hotel__title">${hotelName}</h1>
-            // <div class="chart__container chart__container1">
-            //     <div class="storey story_${storeyNum}" data-hotel="${hotelNum}" data-storey="${storeyNum}" data-storeytitle="${storeyTitle}">
-            //         <span class="storey__num">${storeyNum}</span>
-            //         <span class="storey__title">${storeyTitle}</span>
-
-            //         <div class="storey__body"></div>
-
-            //     </div>
-
-            //     </div>
-
-            // </div>
-            // `
 
 
 
-            // $.get(`/v2/api/entity/workflow_type/list`)
-            //     .done(data => {
-            //         let allInstances = data.data
-            //         let allHotelReuests = allInstances.map(hotel => $.get(
-            //             `/v2/api/entity/${hotel.entity_key}/list?per_page=1500`))
+            let hotelStruct = `
 
-            //         Promise.all(allHotelReuests).then(allResponses => {
-            //             allResponses.map((data, i1) => {
-            //                 let hotelData = data.data
-            //                 let entityKey = hotelData[0].workflow_type.entity_key
-            //                 let mainKey = hotelData[0].workflow_type.entity_key.split(
-            //                         "-")
-            //                     .slice(-1)
+            <div class="hotel__container hotel__container1 hotel${i1}">
+            <h1 class="hotel__title">فندق شيراتون جدة</h1>
+            <div class="chart__container chart__container1">
+                <div class="storey story_1" data-hotel="1" data-storey="1">
+                    <span class="storey__num">1</span>
+                    <span class="storey__title">الدور الأول</span>
 
-            //                 // console.log(
-            //                 //     `Hotel ${hotelData[0].workflow_type.name}: ${hotelData.length} rooms.`
-            //                 // )
+                    <div class="storey__body"></div>
 
-            //                 let newHotel =
-            //                     `
-            //                 <div class="hotel__container data-hotel_url="${entityKey}" data-hotel_key="${mainKey}" hotel${i1}"><h1 class="hotel__title">${hotelData[0].workflow_type.name} </h1><div class="chart__container hotel_chart${mainKey}"></div></div>`
-            //                 $(".hotels__container").append(newHotel)
+                </div>
+
+            </div>
+
+        </div>
 
 
-            //                 hotelData.map((newRoom, i2) => {
-            //                     let hotelID = newRoom.id
-            //                     let hotelStartDate = newRoom.start_date
-            //                     let hotelSDeliveryDate = newRoom.delivery_date
-            //                     let reserved = !hotelSDeliveryDate ? false :
-            //                         true
-            //                     let roomColor = reserved ? reservedRoom :
-            //                         vacantRoom
 
-            //                     let roomElement = hotelData.length > 0 ?
-            //                         `<div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"></div>` :
-            //                         "لا يوجد غرف في هذا الفندق"
-            //                     $(".hotel_chart" + mainKey).append(roomElement)
 
-            //                 })
-            //             })
-            //         })
+            <div class="hotel__container hotel__container1 hotel_${hotelNum}">
+            <h1 class="hotel__title">${hotelName}</h1>
+            <div class="chart__container chart__container1">
+                <div class="storey story_${storeyNum}" data-hotel="${hotelNum}" data-storey="${storeyNum}" data-storeytitle="${storeyTitle}">
+                    <span class="storey__num">${storeyNum}</span>
+                    <span class="storey__title">${storeyTitle}</span>
 
-            //     }).then(() => {
+                    <div class="storey__body"></div>
+
+                </div>
+
+                </div>
+
+            </div>
+            `
+
+
+
+            $.get(`/v2/api/entity/workflow_type/list`)
+                .done(data => {
+                    let allInstances = data.data
+                    console.log(allInstances)
+                    let allHotelReuests = allInstances.map(hotel => $.get(
+                        `/v2/api/entity/${hotel.entity_key}/list?per_page=1500`))
+
+                    Promise.all(allHotelReuests).then(allResponses => {
+                        allResponses.map((data, i1) => {
+                            let hotelData = data.data
+                            let entityKey = hotelData[0].workflow_type.entity_key
+                            let mainKey = hotelData[0].workflow_type.entity_key.split(
+                                    "-")
+                                .slice(-1)
+
+                            console.log(
+                                `Hotel ${hotelData[0].workflow_type.name}: ${hotelData.length} rooms.`
+                            )
+
+                            let newHotel =
+                                `
+                    <div class="hotel__container data-hotel_url="${entityKey}" data-hotel_key="${mainKey}" hotel${i1}"><h1 class="hotel__title">${hotelData[0].workflow_type.name} </h1><div class="chart__container hotel_chart${mainKey}"></div></div>`
+                            $(".hotels__container").append(newHotel)
+
+
+                            hotelData.map((newRoom, i2) => {
+                                let hotelID = newRoom.id
+                                let hotelStartDate = newRoom.start_date
+                                let hotelSDeliveryDate = newRoom.delivery_date
+                                let reserved = !hotelSDeliveryDate ? false :
+                                    true
+                                let roomColor = reserved ? reservedRoom :
+                                    vacantRoom
+
+                                let roomElement = hotelData.length > 0 ?
+                                    `<div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"></div>` :
+                                    "لا يوجد غرف في هذا الفندق"
+                                $(".hotel_chart" + mainKey).append(roomElement)
+
+                            })
+                        })
+                    })
+
+                })
+            // .then(() => {
 
 
             //         setTimeout(() => {
@@ -1316,7 +1419,7 @@ $this.siblings(".storey__title").toggleClass("show__title")
             //     let allRooms = $(".hotel__room")
             //     let numOfClicks = 0
 
-         
+
         })
     </script>
 </body>

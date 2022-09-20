@@ -69,32 +69,34 @@
         box-sizing: border-box;
         overflow-x: hidden;
         position: relative;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         background: var(--color-base-1)
     }
 
     a {
-        text-decoration: none;
+        text-decoration: none !important;
     }
 
     #site {
         display: contents
     }
 
-    #site-header {
+    #site-header,
+    #site-footer {
         display: none;
     }
 
     .header__container {
-        padding: .5em 0;
+        padding: .5em 10em;
         margin: auto;
         width: 100%;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        align-items: center;
         box-shadow: var(--ui-drop-shadow-1);
         background-color: var(--color-bg-1);
         position: fixed;
-        z-index: 2;
+        z-index: 20 !important;
     }
 
     .report__go {
@@ -104,6 +106,7 @@
     }
 
     .report__go p {
+        margin: 0 !important;
         transition: var(--trans-1);
         font-size: var(--fs-1);
         padding: .5em var(--padding-container-1);
@@ -123,8 +126,12 @@
         flex-direction: column;
         /* margin-inline:  calc(var(--gutter-2)*3); */
         /* padding: var(--padding-text-1); */
-        color: var(--color-font-1);
+        color: var(--color-font-1) !important;
         transition: var(--trans-1);
+    }
+
+    .title__container:hover {
+        opacity: var(--on-hover-txt-1);
     }
 
     .app__title {
@@ -141,10 +148,6 @@
         width: 100%;
     }
 
-    .title__container:hover {
-        opacity: var(--on-hover-txt-1);
-    }
-
     .hotels__container {
         width: 100vw;
         position: relative;
@@ -157,6 +160,7 @@
 
     .tools__container {
         display: flex;
+        gap: 40em;
         align-items: space-between;
         width: 80%;
         margin: 0 auto;
@@ -172,8 +176,8 @@
     }
 
     .summary__label {
-        font-size: .6rem;
-        width: 100%;
+        /* font-size: .6rem;
+        width: 100%; */
 
     }
 
@@ -184,23 +188,25 @@
         justify-content: center;
         flex-direction: column;
         text-align: center;
-        font-size: .8rem;
-        font-weight: 600;
         color: var(--color-bg-1);
         cursor: pointer;
         box-shadow: var(--shadow-tile);
-        width: 30px;
-        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
         background-color: #c1c1c1;
         border-radius: var(--room-border-radius);
-        padding: .6em .8em;
-        gap: 3px;
+        padding: .2em .8em;
+        /* gap: 3px; */
         transition: var(--trans-1);
 
     }
 
     .hotel__summary>* {
+        font-size: .6rem;
+        font-weight: 600;
         cursor: pointer;
+        margin: 0;
+        ;
     }
 
     .hotel__summary:hover {
@@ -570,6 +576,7 @@
         width: 15px;
         top: 0;
         left: 0;
+        z-index: 1;
         /* box-shadow: var(--ui-drop-shadow-2);
         border-bottom-right-radius: var(--room-border-radius);
         background-color: aquamarine; */
@@ -803,6 +810,49 @@
             transform: translate3d(4px, 0, 0);
         }
     }
+
+    .intro__outer {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        padding: 5em 0em;
+
+    }
+
+    .intro__inner {
+        width: 85%;
+        height: 100%;
+        text-align: center;
+        padding: 8em 0em;
+        margin: 0 auto;
+        background-color: var(--color-font-1);
+        box-shadow: var(--ui-drop-shadow-2);
+        border-radius: var(--btn-border-radius);
+        cursor: pointer;
+        transition: var(--trans-1);
+        color: var(--color-bg-1);
+
+    }
+
+    .intro__inner:hover {
+        opacity: var(--on-hover-txt-1);
+    }
+
+    .intro__outer p:first-child {
+        font-size: 50px;
+        font-weight: bold;
+    }
+
+    .intro__outer p:last-child {
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .intro__outer p {
+        text-align: center;
+        margin: var(--gutter-1);
+    }
 </style>
 
 <body>
@@ -822,11 +872,7 @@
         <div class="tools__container">
             <div class="select__container">
                 <select name="hotels" class="selec__hotel">
-                    <option value="1" class="option1">فندق شيراتون جدة</option>
-                    <option value="2" class="option2">فندق المعتمر الأول</option>
-                    <option value="3" class="option3">فندق ٣</option>
-                    <option value="4" class="option4">فندق ٤</option>
-                    <option value="5" class="option5">فندق ٥</option>
+                    <option class="option1" selected>-- اختر الفندق --</option>
                 </select>
             </div>
             <div class="hotel__summary_container">
@@ -848,6 +894,15 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="intro__outer">
+            <div class="intro__inner">
+
+                <p>أهلًا بكم في برنامج حجز شركة ل ا ق و ن <br> لخدمات السفر والاعتمار</p>
+
+                <p>اختار فندق من القائمة لمباشرة العمل </p>
+            </div>
         </div>
         <!-- <div class="hotel__wrapper"> -->
         <!-- <div class="hotel__container hotel__container1 hotel${i1}">
@@ -947,7 +1002,7 @@
             </div>
             `
 
-            $("body").append(theContainer)
+            $(".header__container").after(theContainer)
             toggleOnClick()
             containerResize()
             let contWidth = 600;
@@ -1235,7 +1290,7 @@
 
             let hotelStruct = `
 
-            <div class="hotel__container hotel__container1 hotel${i1}">
+            <div class="hotel__container hotel__container1 hotel${""}">
             <h1 class="hotel__title">فندق شيراتون جدة</h1>
             <div class="chart__container chart__container1">
                 <div class="storey story_1" data-hotel="1" data-storey="1">
@@ -1251,70 +1306,85 @@
         </div>
 
 
+        `
 
 
-            <div class="hotel__container hotel__container1 hotel_${hotelNum}">
-            <h1 class="hotel__title">${hotelName}</h1>
-            <div class="chart__container chart__container1">
-                <div class="storey story_${storeyNum}" data-hotel="${hotelNum}" data-storey="${storeyNum}" data-storeytitle="${storeyTitle}">
-                    <span class="storey__num">${storeyNum}</span>
-                    <span class="storey__title">${storeyTitle}</span>
+            // <div class="hotel__container hotel__container1 hotel_${hotelNum}">
+            // <h1 class="hotel__title">${hotelName}</h1>
+            // <div class="chart__container chart__container1">
+            //     <div class="storey story_${storeyNum}" data-hotel="${hotelNum}" data-storey="${storeyNum}" data-storeytitle="${storeyTitle}">
+            //         <span class="storey__num">${storeyNum}</span>
+            //         <span class="storey__title">${storeyTitle}</span>
 
-                    <div class="storey__body"></div>
+            //         <div class="storey__body"></div>
 
-                </div>
+            //     </div>
 
-                </div>
+            //     </div>
 
-            </div>
-            `
+            // </div>
 
 
 
             $.get(`/v2/api/entity/workflow_type/list`)
                 .done(data => {
                     let allInstances = data.data
-                    console.log(allInstances)
-                    let allHotelReuests = allInstances.map(hotel => $.get(
-                        `/v2/api/entity/${hotel.entity_key}/list?per_page=1500`))
-
-                    Promise.all(allHotelReuests).then(allResponses => {
-                        allResponses.map((data, i1) => {
-                            let hotelData = data.data
-                            let entityKey = hotelData[0].workflow_type.entity_key
-                            let mainKey = hotelData[0].workflow_type.entity_key.split(
-                                    "-")
-                                .slice(-1)
-
-                            console.log(
-                                `Hotel ${hotelData[0].workflow_type.name}: ${hotelData.length} rooms.`
-                            )
-
-                            let newHotel =
-                                `
-                    <div class="hotel__container data-hotel_url="${entityKey}" data-hotel_key="${mainKey}" hotel${i1}"><h1 class="hotel__title">${hotelData[0].workflow_type.name} </h1><div class="chart__container hotel_chart${mainKey}"></div></div>`
-                            $(".hotels__container").append(newHotel)
-
-
-                            hotelData.map((newRoom, i2) => {
-                                let hotelID = newRoom.id
-                                let hotelStartDate = newRoom.start_date
-                                let hotelSDeliveryDate = newRoom.delivery_date
-                                let reserved = !hotelSDeliveryDate ? false :
-                                    true
-                                let roomColor = reserved ? reservedRoom :
-                                    vacantRoom
-
-                                let roomElement = hotelData.length > 0 ?
-                                    `<div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"></div>` :
-                                    "لا يوجد غرف في هذا الفندق"
-                                $(".hotel_chart" + mainKey).append(roomElement)
-
-                            })
-                        })
+                    let allHotelReuests = allInstances.map(hotel => {
+                        $(".selec__hotel").append(
+                            `<option value="${ hotel.id}" data-req="/v2/api/entity/${hotel.entity_key}/list?per_page=1500">${hotel.name}</option>`
+                        )
+                        console.log(hotel.name)
+                        return $.get(`/v2/api/entity/${hotel.entity_key}/list?per_page=1500`)
                     })
-
                 })
+
+            $(".selec__hotel").change(function () {
+                $this = $(this)
+                let selectedOpt = $this.find(":selected")
+                let reqURL = $(selectedOpt).data("req")
+                console.log(reqURL)
+                $.get(`${reqURL}`)
+                    .done(data => {
+                        console.log(data.data)
+
+                    })
+            })
+            //     Promise.all(allHotelReuests).then(allResponses => {
+            //     allResponses.map((data, i1) => {
+            //         let hotelData = data.data
+            //         let entityKey = hotelData[0].workflow_type.entity_key
+            //         let mainKey = hotelData[0].workflow_type.entity_key.split(
+            //                 "-")
+            //             .slice(-1)
+
+            //         console.log(
+            //             `Hotel ${hotelData[0].workflow_type.name}: ${hotelData.length} rooms.`
+            //         )
+
+            //         let newHotel =
+            //             `
+            // <div class="hotel__container data-hotel_url="${entityKey}" data-hotel_key="${mainKey}" hotel${i1}"><h1 class="hotel__title">${hotelData[0].workflow_type.name} </h1><div class="chart__container hotel_chart${mainKey}"></div></div>`
+            //         $(".hotels__container").append(newHotel)
+
+
+            //         hotelData.map((newRoom, i2) => {
+            //             let hotelID = newRoom.id
+            //             let hotelStartDate = newRoom.start_date
+            //             let hotelSDeliveryDate = newRoom.delivery_date
+            //             let reserved = !hotelSDeliveryDate ? false :
+            //                 true
+            //             let roomColor = reserved ? reservedRoom :
+            //                 vacantRoom
+
+            //             let roomElement = hotelData.length > 0 ?
+            //                 `<div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"></div>` :
+            //                 "لا يوجد غرف في هذا الفندق"
+            //             $(".hotel_chart" + mainKey).append(roomElement)
+
+            //         })
+            //     })
+            // })
+
             // .then(() => {
 
 

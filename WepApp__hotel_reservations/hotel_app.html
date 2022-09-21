@@ -472,6 +472,7 @@
         padding: 20px;
         border-radius: 10px;
         width: 600px;
+        z-index: 2;
     }
 
     .form,
@@ -1119,7 +1120,9 @@
                           </div>
                             </fieldset>
                         </form>`
-            $("body").append(reserveForm)
+            // $("body").append(reserveForm)
+            $(".header__container").after(reserveForm)
+
             $(".confirm__reserved").click(function () {
                 $this = $(this)
                 $(".form").css({
@@ -1312,13 +1315,7 @@
             // <div class="hotel__container hotel__container1 hotel_${hotelNum}">
             // <h1 class="hotel__title">${hotelName}</h1>
             // <div class="chart__container chart__container1">
-            //     <div class="storey story_${storeyNum}" data-hotel="${hotelNum}" data-storey="${storeyNum}" data-storeytitle="${storeyTitle}">
-            //         <span class="storey__num">${storeyNum}</span>
-            //         <span class="storey__title">${storeyTitle}</span>
 
-            //         <div class="storey__body"></div>
-
-            //     </div>
 
             //     </div>
 
@@ -1326,26 +1323,51 @@
 
 
 
-            $.get(`/v2/api/entity/workflow_type/list`)
-                .done(data => {
-                    let allInstances = data.data
-                    let allHotelReuests = allInstances.map(hotel => {
-                        $(".selec__hotel").append(
-                            `<option value="${ hotel.id}" data-req="/v2/api/entity/${hotel.entity_key}/list?per_page=1500">${hotel.name}</option>`
-                        )
-                        console.log(hotel.name)
-                        return $.get(`/v2/api/entity/${hotel.entity_key}/list?per_page=1500`)
-                    })
+            $.get(`/v2/api/entity/workflow_type/list`, data => {
+                console.log(data)
+                let allInstances = data.data
+                let allHotelReuests = allInstances.map(hotel => {
+                    let selectOpts = hotel.id != 7 ?
+                        `<option value="${hotel.id}" data-req="/v2/api/entity/${hotel.entity_key}/list?per_page=1500">${hotel.name}</option>` :
+                        ""
+                    $(".selec__hotel").append(selectOpts)
+                    console.log(hotel.name)
+                    // return $.get(`/v2/api/entity/${hotel.entity_key}/list?per_page=1500`)
                 })
-
+            })
             $(".selec__hotel").change(function () {
                 $this = $(this)
                 let selectedOpt = $this.find(":selected")
+                let hotelID = selectedOpt.val()
                 let reqURL = $(selectedOpt).data("req")
+                let hotelName, roomsPerStorey, reservedRooms, storeyCount;
                 console.log(reqURL)
+                $.get(`/v2/api/entity/le_workflow-type-entity-7/list?per_page=1500`, data => {
+                    console.log(data)
+                    let selectedHotel = data.data.filter(v => v[
+                        "le_workflow-type-entity-7_custom_data"]["hotel_id"] == hotelID)
+                    console.log(selectedHotel)
+                    // let selectedID = selectedHotel[0].id
+                    let hotelCustomData = selectedHotel[0][
+                        "le_workflow-type-entity-7_custom_data"
+                    ]
+                    hotelName = hotelCustomData.hotel_name
+                    roomsPerStorey = hotelCustomData.storey_rooms
+                    storeyCount = hotelCustomData.storeys_count
+                    reservedRooms = hotelCustomData.reserved_rooms || 0
+                    console.log(hotelName, roomsPerStorey, storeyCount, reservedRooms)
+
+                    let storeyStruct = `
+                        <div class="storey story_${storeyNum}" data-hotel="${hotelID}" data-storey="${storeyNum}" data-storeytitle="${storeyTitle}">
+                        <span class="storey__num">${storeyNum}</span>
+                        <span class="storey__title">${storeyTitle}</span>
+                        <div class="storey__body"></div>
+                    </div>
+                        `
+                })
                 $.get(`${reqURL}`)
                     .done(data => {
-                        console.log(data.data)
+                        console.log(data)
 
                     })
             })

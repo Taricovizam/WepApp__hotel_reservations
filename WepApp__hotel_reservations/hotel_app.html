@@ -907,37 +907,7 @@
                 <p>اختار فندق من القائمة لمباشرة العمل </p>
             </div>
         </div>
-        <!-- <div class="hotel__wrapper"> -->
-        <!-- <div class="hotel__container hotel__container1 hotel${i1}">
-            <h1 class="hotel__title">فندق شيراتون جدة</h1>
-            <div class="chart__container chart__container1">
-                <div class="storey story_1" data-hotel="1" data-storey="1">
-                    <span class="storey__num">1</span>
-                    <span class="storey__title">الدور الأول</span>
 
-                    <div class="storey__body"></div>
-
-                </div>
-
-            </div>
-
-        </div> 
-        <div class="hotel__container hotel__container1 hotel${i1}">
-            style="opacity: 0;transform:translate(150%, 0)"
-            <h1 class="hotel__title">فندق شيراتون دة</h1>
-            <div class="chart__container chart__container1">
-                <div class="storey story_1" data-hotel="1" data-storey="1">
-                    <span class="storey__num">1</span>
-                    <span class="storey__title">الدور الأول</span>
-
-                    <div class="storey__body"></div>
-
-                </div>
-
-            </div>
-
-        </div> -->
-        <!-- </div> -->
     </div>
 
 
@@ -1117,6 +1087,7 @@
                             </div>
                             <div class="btns__container">
                             <input type="button" value="تأكيد" class="form-button confirm" />
+                            <input type="text" placeholder="رقم الفاتورة" class="form-button invoice__no" />
                             <input type="button" value="إلغاء" class="form-button cancel" />
                           </div>
                             </fieldset>
@@ -1134,60 +1105,41 @@
                 $(".form").css({
                     top: "-10%"
                 })
+                $(".from_date").val("")
+                $(".to_date").val("")
             })
             $(".confirm").click(() => {
                 let fromDate = $(".from_date").val()
                 let toDate = $(".to_date").val()
+                let invNum = $(".invoice__no").val()
                 let todayDate = new Date().toLocaleDateString()
                 let nowTime = new Date().toLocaleTimeString()
-                // $(".to_date").toggleClass("shake").css({border:"1px solid red"})
-                // $(".from_date").toggleClass("shake2").css({border:"1px solid red"})
+                console.log(fromDate, toDate, invNum)
+                if (fromDate > toDate || toDate === "" || fromDate === "" || invNum === "") {
+                    $(".to_date").removeClass("shake").addClass("shake").css({
+                        border: "1px solid red"
+                    })
+                    $(".from_date").removeClass("shake").addClass("shake").css({
+                        border: "1px solid red"
+                    })
+                } else {
+                    $(".to_date").removeClass("shake").css({
+                        border: "none"
+                    })
+                    $(".from_date").removeClass("shake").css({
+                        border: "none"
+                    })
+
+                    let roomsToReseve = $(".container__body").children()
+                }
             })
 
 
-
-            // =================== ForLOOP =====================
             //TODO: Rfactor JS 
             //TODO: POST request
             //TODO: Check and get data for instance that has repo
             //TODO: Preserve data in the app: last reservations session: no_of_rooms, date, time, inv_ref
 
-
-
-            // $(".selec__hotel").change(function () {
-            //     $this = $(this)
-            //     let hotelSelected = $this.find(":selected").val()
-
-            //     if (hotelSelected == 2) {
-            //         $(".hotel__container1").hide()
-            //         $(".hotel__container2").show()
-
-            //     } else {
-            //         $(".hotel__container2").hide()
-            //         $(".hotel__container1").show()
-
-            //     }
-
-            // })
-
-            // let allStoreys1 = $(".chart__container1 .storey").length
-
-            // for (let i = 0; i < allStoreys1; i++) {
-            //     let thisStorey = $(".storey").eq(i)
-            //     for (let y = 0; y < 100; y++) {
-            //         let el = ` <div class="hotel__room" style="background:${""}" data-room="غرفة ${y+1}"
-            //             data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/?"
-            //             data-startdate="${""}" data-deliverydate="${""}"
-            //             data-booked="${""}">
-            //             <p style="margin:auto">${y+1}</p>
-            //         </div>`
-            //         thisStorey.find(".storey__body").append(el)
-
-            //         if (y % 5 == 0) {
-            //             $(".storey").eq(i).find(".hotel__room:last-child").addClass("disabled")
-            //         }
-            //     }
-            // }
 
             function confirmRezBtn() {
                 $(".the__container").mousemove(() => {
@@ -1245,7 +1197,6 @@
 
                     } else {
                         $this.attr("data-res", false)
-                        // console.log(allReservedRooms)
 
                         $this.css({
                             backgroundColor: vacantRoom
@@ -1265,64 +1216,6 @@
                 })
             }
 
-            // =================== API =====================
-
-            // let allHotels = [];
-            // let allRooms = $(".hotel__room")
-            // let summaryEntity = "le_workflow-type-entity-7"
-            // let siteAPIKEY = "cb4e120711c1312b67d2f332be86265ce9c7b485"
-            // let hotelsDetails = {}
-
-            // $.get(`/v2/api/entity/${summaryEntity}/list`).done(data => {
-            //     let allHotelsDetails = data.data
-            //     // console.log(allHotelsDetails)
-            //     $.each(allHotelsDetails, (eachHotelID, eachHotel) => {
-            //         let hotelDetails = {}
-            //         let hotel_id = eachHotel[
-            //             "le_workflow-type-entity-7_custom_data"].hotel_id
-            //         hotelDetails.hotel_name = eachHotel[
-            //             "le_workflow-type-entity-7_custom_data"].hotel_name
-            //         hotelDetails.storeys_count = eachHotel[
-            //             "le_workflow-type-entity-7_custom_data"].storeys_count
-            //         hotelDetails.storey_rooms = eachHotel[
-            //             "le_workflow-type-entity-7_custom_data"].storey_rooms
-            //         hotelsDetails[hotel_id] = hotelDetails
-            //         // console.log(hotelsDetails)
-            //     })
-            // })
-
-            // $(".hotel__summary:nth-child(1)").click(() => {
-            //     $(".hotel__container:nth-child(2)").css({
-            //         transform: "translate(150%, 0px)",
-            //     }).fadeOut()
-            //     $(".hotel__container:nth-child(3)").css({
-            //         transform: "translate(0%, 0px)",
-            //         opacity: 1
-            //     }).fadeIn()
-            // })
-
-
-
-
-            //     let hotelStruct = `
-
-            //     <div class="hotel__container hotel__container1 hotel${""}">
-            //     <h1 class="hotel__title">فندق شيراتون جدة</h1>
-            //     <div class="chart__container chart__container1">
-            //         <div class="storey story_1" data-hotel="1" data-storey="1">
-            //             <span class="storey__num">1</span>
-            //             <span class="storey__title">الدور الأول</span>
-
-            //             <div class="storey__body"></div>
-
-            //         </div>
-
-            //     </div>
-
-            // </div>
-
-
-            // `
             let baseEntity = "le_workflow-type-entity-7"
 
             $.get(`/v2/api/entity/${baseEntity}/list`, data => {
@@ -1355,9 +1248,11 @@
                 let hotelName = $this.text()
                 let storeyCount = +$this.data("storeys")
                 let roomsCount = +$this.data("rooms")
-                $.get(`/v2/api/entity/workflow_type/list?per_page=1500`, data => {
-                    let selectedHotel = data.data.filter(v => v.id == hotelID)
-                    console.log(selectedHotel)
+                // $.get(`/v2/api/entity/workflow_type/list?per_page=2000`, data => {
+                $.get(`/v2/api/entity/le_workflow-type-entity-${hotelID}/list?per_page=2000`, data => {
+                    allRooms = data.data
+                    // let selectedHotel = allRooms[0].filter(v => v.workflow_type_id == hotelID)
+                    // console.log(selectedHotel)
                     let hotelStruct = `
                         <div class="hotel__container hotel__container${hotelID} hotel_${hotelID}">
                                     <h1 class="hotel__title">${hotelName}</h1>
@@ -1392,6 +1287,7 @@
                         20: "الدور العشرون"
                     }
                     let storeyNum = 0;
+                    let counter = 0
                     while (storeyNum < storeyCount) {
                         storeyNum++
                         let storeyStruct = `
@@ -1403,13 +1299,29 @@
                         `
                         $(`.hotel__container${hotelID}`).append(storeyStruct)
 
-                        for (let y = 0; y < roomsCount; y++) {
-                            let newRoom = `<div class="hotel__room" style="background:${""}" data-room="${storeyObj[storeyNum]} - غرفة ${y+1}"
+                        // allRooms.map((v, i) => {
+                        //     let newRoom = `<div class="hotel__room" data-room="${storeyObj[storeyNum]} - غرفة ${i+1}" data-roomid="${v.id}"
+                        //     data-startdate="${""}" data-deliverydate="${""}"
+                        // data-booked="${""}">
+                        // <p style="margin:auto">${i+1}</p>
+                        // </div>`
+                        //     $(`.story_${storeyNum}`).find(".storey__body").append(
+                        //         newRoom)
+                        // })
+
+                        console.log("counter at:", counter)
+                        for (i = counter; i < allRooms.length; i++) {
+                            console.log("starting at:", i)
+                            counter = i
+                            console.log("counter at:", counter, "breaker", counter + roomsCount)
+                            if (counter == counter + roomsCount) break
+                            let newRoom = `<div class="hotel__room" data-room="${storeyObj[storeyNum]} - غرفة ${i+1}" data-roomid="${allRooms[i].id}"
                             data-startdate="${""}" data-deliverydate="${""}"
                         data-booked="${""}">
-                        <p style="margin:auto">${y+1}</p>
+                        <p style="margin:auto">${i+1}</p>
                         </div>`
-                            $(`.story_${storeyNum}`).find(".storey__body").append(newRoom)
+                            $(`.story_${storeyNum}`).find(".storey__body").append(
+                                newRoom)
                         }
                     }
                 }).done(() => {
@@ -1419,146 +1331,6 @@
                 })
 
             })
-
-            //     Promise.all(allHotelReuests).then(allResponses => {
-            //     allResponses.map((data, i1) => {
-            //         let hotelData = data.data
-            //         let entityKey = hotelData[0].workflow_type.entity_key
-            //         let mainKey = hotelData[0].workflow_type.entity_key.split(
-            //                 "-")
-            //             .slice(-1)
-
-            //         console.log(
-            //             `Hotel ${hotelData[0].workflow_type.name}: ${hotelData.length} rooms.`
-            //         )
-
-            //         let newHotel =
-            //             `
-            // <div class="hotel__container data-hotel_url="${entityKey}" data-hotel_key="${mainKey}" hotel${i1}"><h1 class="hotel__title">${hotelData[0].workflow_type.name} </h1><div class="chart__container hotel_chart${mainKey}"></div></div>`
-            //         $(".hotels__container").append(newHotel)
-
-
-            //         hotelData.map((newRoom, i2) => {
-            //             let hotelID = newRoom.id
-            //             let hotelStartDate = newRoom.start_date
-            //             let hotelSDeliveryDate = newRoom.delivery_date
-            //             let reserved = !hotelSDeliveryDate ? false :
-            //                 true
-            //             let roomColor = reserved ? reservedRoom :
-            //                 vacantRoom
-
-            //             let roomElement = hotelData.length > 0 ?
-            //                 `<div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"></div>` :
-            //                 "لا يوجد غرف في هذا الفندق"
-            //             $(".hotel_chart" + mainKey).append(roomElement)
-
-            //         })
-            //     })
-            // })
-
-            // .then(() => {
-
-
-            //         setTimeout(() => {
-            //             allRooms = $(".hotel__room");
-            //             console.log(allRooms)
-            //             roomClick()
-            //         }, 5000)
-
-            //         console.log("Done!")
-            //     })
-
-
-            // console.log(allRooms)
-
-            // allRooms.click(function (e) {
-            //     e.stopImmediatePropagation();
-            //     $this = $(this)
-            //     // $this.data("booked") = "true"
-            //     console.log($this)
-
-            //     // setTimeout(() => {
-            //     //     let allReservedRooms = $(".new__resevedRoom")
-            //     //     console.log(allReservedRooms)
-            //     // }, 100)
-
-            //     // allReservedRooms.click(function () {
-            //     //     let $this = $(this)
-            //     //     $this.remove()
-            //     // })
-
-
-            //     let newResevedRoom = `
-            //     <div class="new__resevedRoom">غرفة جديدة!</div>
-            //     `
-            //     $(".container__body").append(newResevedRoom)
-
-
-
-            //     if ($this.css("backgroundColor") !=
-            //         reservedRoom) {
-            //         $this.css({
-            //             backgroundColor: reservedRoom
-            //         })
-            //         console.log(false)
-
-            //         // $(".form").css({
-            //         //     top: "50%"
-            //         // })
-            //         $(".container__body").append(
-            //             newResevedRoom)
-            //     } else {
-            //         console.log(true)
-            //         $this.css({
-            //             backgroundColor: vacantRoom
-            //         })
-
-            //     }
-            // })
-            //     $.each(allInstances, (i, v) => allHotels.push(v.entity_key))
-            // }).done(() => {
-            //     allHotels.pop()
-            //     console.log(allHotels)
-            //                 $.each(allHotels, (i1, hotel) => {
-            //                     $.get(`/v2/api/entity/${hotel}/list?per_page=1500`).done(
-            //                         data => {
-            //                             let hotelData = data.data
-            //                             console.log(
-            //                                 `Hotel ${hotelData[0].workflow_type.name}: ${hotelData.length} rooms.`ححح
-            //                             )
-
-            //                             let newHotel = `<div class="hotel__container hotel${i1}">
-            //     <h1 class="hotel__title">
-            //         ${hotelData[0].workflow_type.name} 
-            //     </h1>
-            //     <div class="chart__container hotel_chart${i1}">
-
-            //     </div>
-            // </div>`
-            // $(".hotels__container").append(newHotel)
-            // for (let i = 0; i < hotelRooms; i++) {
-            //     $.each(hotelData, (i2, newRoom) => {
-            //         let hotelID = newRoom.id
-            //         let hotelStartDate = newRoom.start_date
-            //         let hotelSDeliveryDate = newRoom
-            //             .delivery_date
-            //         let reserved = !hotelSDeliveryDate ?
-            //             false : true
-            //         let roomColor = reserved ?
-            //             reservedRoom : vacantRoom
-
-            //         let roomElement = hotelData.length > 0 ?
-            //             `<div class="hotel__room" style="background:${roomColor}" data-url="https://mohamedbadeny2022.daftra.com/owner/work_orders/workflow_view/${hotelID}?" data-startdate="${hotelStartDate}" data-deliverydate="${hotelSDeliveryDate}" data-booked="${reserved}"></div>` :
-            //             "لا يوجد غرف في هذا الفندق"
-            //         $(".hotel_chart" + i1).append(
-            //             roomElement)
-            //         console.log("Done!")
-
-            //     })
-            // }).done(() => {
-
-            //     let allRooms = $(".hotel__room")
-            //     let numOfClicks = 0
 
 
         })

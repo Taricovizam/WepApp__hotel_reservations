@@ -691,6 +691,8 @@
 
     }
 
+
+
     .confirm__reserved {
         opacity: 0;
         font-weight: bold;
@@ -712,6 +714,21 @@
         /* width: 40%; */
         filter: brightness(.9);
     }
+
+    .invoice__no {
+        width: 15%;
+        font-size: 0.6rem;
+        padding: 0.3rem;
+        text-align: center;
+        outline: none;
+        border: none;
+        cursor: auto;
+    }
+
+    .invoice__no:hover {
+        transform: none;
+    }
+
 
     .new__resevedRoom {
         /* margin: 0 auto; */
@@ -1087,7 +1104,7 @@
                             </div>
                             <div class="btns__container">
                             <input type="button" value="تأكيد" class="form-button confirm" />
-                            <input type="text" placeholder="رقم الفاتورة" class="form-button invoice__no" />
+                            <input type="text" placeholder="رقم الفاتورة" class="invoice__no" />
                             <input type="button" value="إلغاء" class="form-button cancel" />
                           </div>
                             </fieldset>
@@ -1115,10 +1132,23 @@
                 let todayDate = new Date().toLocaleDateString()
                 let nowTime = new Date().toLocaleTimeString()
                 console.log(fromDate, toDate, invNum)
-                if (fromDate > toDate || toDate === "" || fromDate === "" || invNum === "") {
-                    $(".to_date").removeClass("shake").addClass("shake").css({
-                        border: "1px solid red"
+                if (toDate === "" || fromDate === "" || invNum === "") {
+
+                    $(".to_date, .from_date, .invoice_no").map(v => {
+                        $(v).val() === "" ? $(v).removeClass("shake").addClass("shake").css({
+                            border: "1px solid red"
+                        }) : ""
                     })
+                    // $(".to_date").removeClass("shake").addClass("shake").css({
+                    //     border: "1px solid red"
+                    // })
+                    // $(".from_date").removeClass("shake").addClass("shake").css({
+                    //     border: "1px solid red"
+                    // })
+                    // $(".invoice__no").removeClass("shake").addClass("shake").css({
+                    //     border: "1px solid red"
+                    // })
+                } else if (fromDate > toDate) {
                     $(".from_date").removeClass("shake").addClass("shake").css({
                         border: "1px solid red"
                     })
@@ -1129,8 +1159,66 @@
                     $(".from_date").removeClass("shake").css({
                         border: "none"
                     })
+                    $(".invoice__no").removeClass("shake").css({
+                        border: "none"
+                    })
 
                     let roomsToReseve = $(".container__body").children()
+                    console.log(roomsToReseve)
+                    console.log(roomsToReseve.data("roomid"))
+
+                    roomsToReseve.map((i, v) => {
+                        let roomID = $(v).data("roomid")
+                        let hotelID = $(".selec__hotel :selected").val()
+                        let serialID = $(".selec__hotel :selected").data("serial-id")
+                        let reserveThisRoom = `
+                                                {
+                                "number": {
+                                    "generated": "0",
+                                    "code": "0"
+                                },
+                                "title": "",
+                                "id": ${roomID},
+                                "start_date": ${fromDate},
+                                "delivery_date": ${toDate}
+                            }
+                            `
+                        $.ajax({
+                            url: `https://mohamedbadeny2022.daftra.com/v2/api/entity/le_workflow-type-entity-${hotelID}/${roomID}`,
+                            method: "PUT",
+                            contentType: "json/application",
+                            data: JSON.stringify(reserveThisRoom)
+                        }).done(() => {
+
+                            console.log("success")
+
+                        })
+                    }).done(() => {
+                        let updateHotel = `
+                                                        {
+                                        "number": {
+                                            "generated": "0",
+                                            "code": "0"
+                                        },
+                                        "title": "",
+                                        "id": ${roomID},
+                                        "start_date": ${todayDate},
+                                        "delivery_date": ${toDate}
+                                    }
+                                    `
+
+                        $.ajax({
+                            url: `https://mohamedbadeny2022.daftra.com/v2/api/entity/${baseEntity}/${serialID}`,
+                            method: "PUT",
+                            contentType: "json/application",
+                            data: JSON.stringify(updateHotel)
+                        })
+                    })
+
+
+
+
+
                 }
             })
 
@@ -1151,6 +1239,7 @@
                     }
 
                 })
+
             }
 
             function roomFunction() {
@@ -1169,8 +1258,9 @@
                             backgroundColor: reservedRoom
                         })
                         let roomNum = $this.data("room")
+                        let roomID = $this.data("roomid")
                         let newResevedRoom = `
-                    <div class="new__resevedRoom" style="opacity:0" data-room="${roomNum}">${roomNum}</div>
+                    <div class="new__resevedRoom" style="opacity:0" data-room="${roomNum}" data-roomid="${roomID}">${roomNum}</div>
                 `
 
                         $(".container__body").append(newResevedRoom)
@@ -1221,6 +1311,9 @@
             $.get(`/v2/api/entity/${baseEntity}/list`, data => {
                 console.log(data)
                 data.data.map(hotel => {
+                    let serialID = hotel.id
+                    let hotelDesc = hotel.description
+                    let hotelTitle = hotel.title
                     let hotelCustomData = hotel[
                         "le_workflow-type-entity-7_custom_data"
                     ]
@@ -1237,7 +1330,7 @@
                     $(".summary__figure").eq(2).html(vacantCount)
 
                     $(".selec__hotel").append(
-                        `<option value="${hotelID}" data-storeys="${storeyCount}" data-rooms="${roomsPerStorey}" data-reserved="${reservedRooms}">${hotelName}</option>`
+                        `<option value="${hotelID}" data-serial-id="${serialID}" data-storeys="${storeyCount}" data-rooms="${roomsPerStorey}" data-reserved="${reservedRooms}"><table style="display:none"><tr class="hotel${hotelID}"><td>${hotelTitle}</td><td>${hotelDesc}</td><td>${reservedRooms}</td></tr></table>${hotelName}</option>`
                     )
                 })
             })
@@ -1251,8 +1344,6 @@
                 // $.get(`/v2/api/entity/workflow_type/list?per_page=2000`, data => {
                 $.get(`/v2/api/entity/le_workflow-type-entity-${hotelID}/list?per_page=2000`, data => {
                     allRooms = data.data
-                    // let selectedHotel = allRooms[0].filter(v => v.workflow_type_id == hotelID)
-                    // console.log(selectedHotel)
                     let hotelStruct = `
                         <div class="hotel__container hotel__container${hotelID} hotel_${hotelID}">
                                     <h1 class="hotel__title">${hotelName}</h1>
@@ -1301,8 +1392,8 @@
 
                         // allRooms.map((v, i) => {
                         //     let newRoom = `<div class="hotel__room" data-room="${storeyObj[storeyNum]} - غرفة ${i+1}" data-roomid="${v.id}"
-                        //     data-startdate="${""}" data-deliverydate="${""}"
-                        // data-booked="${""}">
+                        //    data-start-date="${""}" data-delivery-date="${""}"
+                        // data-booked="${bookedRoom}">
                         // <p style="margin:auto">${i+1}</p>
                         // </div>`
                         //     $(`.story_${storeyNum}`).find(".storey__body").append(
@@ -1311,13 +1402,23 @@
 
                         console.log("counter at:", counter)
                         for (i = counter; i < allRooms.length; i++) {
+
+                            let $thisRoom = allRooms[i]
+                            roomStartDate = $thisRoom.start_date
+                            roomDeliveryDate = $thisRoom.delivery_date
+                            bookedRoom = roomDeliveryDate ? true : false
+
+                            bookedRoom ? $($thisRoom).addClass("disabled") : $($thisRoom)
+                                .removeClass("disabled")
+
+
                             console.log("starting at:", i)
                             counter = i
                             console.log("counter at:", counter, "breaker", counter + roomsCount)
                             if (counter == counter + roomsCount) break
                             let newRoom = `<div class="hotel__room" data-room="${storeyObj[storeyNum]} - غرفة ${i+1}" data-roomid="${allRooms[i].id}"
-                            data-startdate="${""}" data-deliverydate="${""}"
-                        data-booked="${""}">
+                            data-start-date="${roomStartDate}" data-delivery-date="${roomDeliveryDate}"
+                        data-booked="${bookedRoom}">
                         <p style="margin:auto">${i+1}</p>
                         </div>`
                             $(`.story_${storeyNum}`).find(".storey__body").append(

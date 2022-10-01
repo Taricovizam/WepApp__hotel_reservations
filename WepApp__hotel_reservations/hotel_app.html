@@ -54,6 +54,7 @@
         --color-primary: #1abc9c;
         --color-secondary: #7c95a1;
         --color-accent: #5DA0A2;
+        --color-edit: rgb(200, 200, 57);
     }
 
     *,
@@ -697,11 +698,15 @@
         pointer-events: none;
         user-select: none;
     }
-
-    .disabled:hover {
+    .disabled__temp{
+        pointer-events: none;
+        user-select: none;
+        
+    }
+    .disabled:hover,
+    .disabled__temp:hover {
         transform: none;
         pointer-events: none;
-
     }
 
 
@@ -939,6 +944,63 @@ margin: 0;
     right: 0;
 }
 
+
+.de__reserve{
+    position: fixed;
+        top: -20%;
+        left: 50%;
+        width: 50%;
+        z-index: 1;
+        transform: translate(-50%, 0);
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: var(--btn-border-radius);
+        box-shadow: var(--ui-drop-shadow-2);
+        padding: var(--padding-container-1);
+}
+.de__reserve_container{
+    background-color: var(--color-bg-1);
+    padding: var(--padding-container-1);
+    border-radius: var(--room-border-radius);
+}
+.question__check h2{
+    text-align: center;
+    color: var(--color-base-1);
+}
+
+.show__deReserve{
+    top: 35%
+}
+.confirm__de_reserve{
+    background-color: var(--color-busy) !important;
+}
+.cancel__de_reserve{
+    background-color: var(--color-primary);
+}
+.undisabled{
+    pointer-events: all;
+    background-color: var(--color-edit);
+}
+.undisabled>*{
+    pointer-events: all;
+    user-select: auto;
+}
+
+.mode__changed{
+    position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 17%;
+        color: #b1afaf;
+        z-index: 1;
+        font-weight: bold;
+        transform: translate(-50%, -50%);
+        transition: .4s;
+        background-color: #1c1f1fb8;
+        border-radius: var(--btn-border-radius);
+        text-align: center;
+        padding: var(--padding-container-1);
+}
 </style>
 
 <body>
@@ -1368,10 +1430,65 @@ roomsToReseve.map((i, v) => {
 
 }
 
+function deReserveRooms(){
 
+    $(document).keydown(function(e){
+        if(e.code === 'F10'){
+            $(".header__container").toggleClass("edit__mode")
+            if(!$(".header__container").hasClass("edit__mode")){
+                $(".hotel__room.disabled").removeAttr("style")
+
+            }else{
+            $(".hotel__room.disabled").toggleClass("undisabled")
+            $(".hotel__room:not(.disabled)").toggleClass("disabled__temp")
+            $(".hotel__room.disabled").hasClass("undisabled") ? $(".header__container").after(`<h3 class="mode__changed">وضع التعديل</h3>`) : $(".header__container").after(`<h3 class="mode__changed">وضع الحجز</h3>`)
+
+            setTimeout(()=>{
+            $(".mode__changed").fadeOut(500, function() { $(this).remove(); })
+            }, 1000)
+       
+    $(".hotel__room.undisabled").click(function (e) {
+        let roomDetails = $(e.target).parent().data("room")
+        let roomID = $(e.target).parent().data("room-id")
+        let hotelID = $(".selec__hotel :selected").val()
+        console.log(e.target, roomDetails)
+        
+        if(e.altKey && e.detail == 2){
+        $(".room__details").html(roomDetails)
+        $(".de__reserve").addClass("show__deReserve")
+    }
+})
+
+}
+        }
+})
+
+$(".cancel__de_reserve").click(()=>{
+        $(".de__reserve").removeClass("show__deReserve")
+
+    })
+
+$(".confirm__de_reserve").click(()=>{
+        console.log("Confirmed!!")
+
+    })
+}
+
+Date.prototype.sameDay = function(d) {
+  return this.getFullYear() === d.getFullYear()
+    && this.getDate() === d.getDate()
+    && this.getMonth() === d.getMonth();
+}
+
+                  
+function checkDeliveryDates(deliveryDate){
+                                let todayDate = new Date()
+                                deliveryDate.setDate(deliveryDate.getDate()-1)
+                            let dayBefore = deliveryDate
+                            todayDate.sameDay(dayBefore) ? console.log(dayBefore) : console.log("ni")
+                                }
             function roomFunction() {
                 let allRooms = $(".hotel__room")
-
                 let reservedRoom = "rgb(231, 92, 66)"
                 let vacantRoom = "rgb(124 149 161)"
 
@@ -1447,20 +1564,40 @@ roomsToReseve.map((i, v) => {
                         </div>
                         `
                         $(".header__container").after(timelineContainer)
-                        
-                        
+                                                
                         // ========== Toggle Timeline =========
                         $(".timeline__btn").click(()=>{
                             $(".timeline__wrapper").toggleClass("show__timeline")
                         })
-                        // ========== NEW DOM =========
-                        
-                        
-                        
-                        
+                        // ========== DeReseve Modal =========
+                        let comfirmDeReservingModal = `
+    <div class="de__reserve">
+        <div class="de__reserve_container">
+        <div class="question__check">
+            <h2> هل أنت متأكد أنك تريد إخلاء هذه غرفة (<span class="room__details"></span>)؟
+                </h2>
+            </div>
+
+        <div class="btns__container">
+                            <input type="button" value="تأكيد" class="form-button confirm__de_reserve" />
+                            
+                            <input type="button" value="إلغاء" class="form-button cancel cancel__de_reserve" />
+                          </div>
+                          </div>
+        </div>
+    `
+    $(".header__container").after(comfirmDeReservingModal)
+
                     }
                     
+                    //TODO: Organize the code
                     
+                    
+                    //TODO: Logo and UI
+                    //TODO: Loader
+                    //TODO: Test hotel constructing
+                    //TODO:  POST RoomsDayBefore/updateHotel/deReserveRooms/
+
             $.get(`/api2/clients`, data => {
                 data.data.map(v=>{
                     let $thisClient = v.Client
@@ -1573,19 +1710,17 @@ roomsToReseve.map((i, v) => {
                         while(i< 20) {
                     
                             let $thisRoom = rangedRooms[i]
-                            let todayDate = new Date()
-                            todayDate = todayDate.toLocaleDateString()
-                            console.log(todayDate)
+
                            let roomName = $thisRoom.title
                            let roomID = $thisRoom.id
                            let roomNum = roomName.split(" ")[1]
                            let roomStartDate = $thisRoom.start_date
                             let roomDeliveryDate = $thisRoom.delivery_date
-                            if(roomDeliveryDate == todayDate) console.log("yup!")
-                            bookedRoom = roomDeliveryDate ? true : false
 
-                            bookedRoom ? $($thisRoom).addClass("disabled") : $($thisRoom)
-                                .removeClass("disabled")
+                            let deliveryDate = new Date(roomDeliveryDate)
+                            checkDeliveryDates(deliveryDate)
+                            
+                            bookedRoom = roomDeliveryDate ? true : false
 
                             let newRoom = `<div class="hotel__room" data-room="${storeyObj[storeyNum]} - غرفة ${roomNum}" data-room-id="${roomID}"
                             data-start-date="${roomStartDate}" data-delivery-date="${roomDeliveryDate}" data-room-name="${roomName}"
@@ -1594,6 +1729,7 @@ roomsToReseve.map((i, v) => {
                         </div>`
                             $(`.story_${storeyNum}`).find(".storey__body").append(
                                 newRoom)
+                                bookedRoom ? $(".hotel__room:last-child").addClass("disabled") : $(".hotel__room:last-child").removeClass("disabled")
                                 i++
                         }
 
@@ -1602,6 +1738,7 @@ roomsToReseve.map((i, v) => {
                     roomFunction()
                     confirmRezBtn()
                     timeLine()
+                    deReserveRooms()
                 })
 
             })

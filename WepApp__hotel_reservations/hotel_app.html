@@ -100,6 +100,8 @@
     }
 
     .report__go {
+        display: flex;
+        gap: 1em;
         cursor: pointer;
         height: 100%;
         color: var(--color-font-1);
@@ -179,7 +181,6 @@
         width: 100%; */
 
     }
-
     .hotel__summary {
 
         display: flex;
@@ -458,6 +459,16 @@
         transform: var(--on-hover-btn-1);
     }
 
+    .dimmed__bg{
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background-color: #0707075c;
+        top: 0;
+        left: -100%;
+        z-index: 2;
+        transition: .2s;
+    }
 
 
     .form {
@@ -472,7 +483,7 @@
         padding: 20px;
         border-radius: 10px;
         width: 600px;
-        z-index: 2;
+        z-index: 3;
     }
 
     .form,
@@ -497,7 +508,6 @@
         color: var(--color-base-1);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     .all-dates {
         display: flex;
         align-items: center;
@@ -882,6 +892,7 @@
             <p class="small__text">لخدمات السفر والاعتمار</p>
         </a>
         <div class="report__go">
+            <p class="">سجل النشاطات</p>
             <p class="">اذهب للتقاير</p>
         </div>
     </div>
@@ -892,25 +903,25 @@
         <div class="tools__container">
             <div class="select__container">
                 <select name="hotels" class="selec__hotel">
-                    <option class="option1" selected>-- اختر الفندق --</option>
+                    <option class="option1" selected="selected">-- اختر الفندق --</option>
                 </select>
             </div>
             <div class="hotel__summary_container">
                 <div class="hotel__summary">
                     <label class="summary__label">الكل</label>
-                    <div class="summary__figure">213</div>
+                    <div class="summary__figure">-</div>
                 </div>
                 <div class="hotel__summary">
                     <label class="summary__label">محجوز</label>
-                    <div class="summary__figure">545</div>
+                    <div class="summary__figure">-</div>
                 </div>
                 <div class="hotel__summary">
                     <label class="summary__label">خالي</label>
-                    <div class="summary__figure">653</div>
+                    <div class="summary__figure">-</div>
                 </div>
                 <div class="hotel__summary">
-                    <label class="summary__label">آخر حجز</label>
-                    <div class="summary__figure">23</div>
+                        <label class="summary__label">آخر حجز</label>
+                        <div class="summary__figure">-</div>
                 </div>
             </div>
 
@@ -1089,6 +1100,9 @@
             }
 
             // ============ RESERVATION FORM ============
+            let dimmedBG = `
+            <div class="dimmed__bg"></div>
+            `
             let reserveForm = `
                                             <form class="form">
                                                      <fieldset class="form_fieldset">
@@ -1110,6 +1124,7 @@
                             </fieldset>
                         </form>`
             // $("body").append(reserveForm)
+            $(".header__container").after(dimmedBG)
             $(".header__container").after(reserveForm)
 
             $(".confirm__reserved").click(function () {
@@ -1117,6 +1132,24 @@
                 $(".form").css({
                     top: "30%"
                 })
+                $(".dimmed__bg").css({
+                    left: 0
+                })
+                $(".form").css({
+                    top: "30%"
+                })
+                $(".dimmed__bg").css({
+                    left: 0
+                })
+            })
+            $(".dimmed__bg").click(()=>{
+                $(".form").css({
+                    top: "-20%"
+                })
+                $(".dimmed__bg").css({
+                    left: "-100%"
+                })
+
             })
             $(".cancel").click(() => {
                 $(".form").css({
@@ -1126,16 +1159,31 @@
                 $(".to_date").val("")
             })
             $(".confirm").click(() => {
+                // $(".from_date").removeClass("shake")
+                // $(".to_date").removeClass("shake")
+                // $(".invoice__no").removeClass("shake")
+                // $(".to_date, .from_date, .invoice_no").map((i,v) => {
+                //     console.log(v)
+                //         $(v).val() === "" ? $(v).removeClass("shake").addClass("shake").css({
+                //             border: "1px solid red"
+                //         }) : ""
+                //     })
                 let fromDate = $(".from_date").val()
                 let toDate = $(".to_date").val()
                 let invNum = $(".invoice__no").val()
                 let todayDate = new Date().toLocaleDateString()
                 let nowTime = new Date().toLocaleTimeString()
                 console.log(fromDate, toDate, invNum)
-                if (toDate === "" || fromDate === "" || invNum === "") {
+                if (toDate == "" || fromDate == "" || invNum == "") {
 
-                    $(".to_date, .from_date, .invoice_no").map(v => {
-                        $(v).val() === "" ? $(v).removeClass("shake").addClass("shake").css({
+                    $(".to_date, .from_date, .invoice__no").map((i,v) => {
+                        $(v).removeClass("shake").css({
+                            border: "none"
+                        })
+                    })
+                    $(".to_date, .from_date, .invoice__no").map((i,v) => {
+                        $(v).val() == "" ? 
+                        $(v).addClass("shake").css({
                             border: "1px solid red"
                         }) : ""
                     })
@@ -1149,71 +1197,80 @@
                     //     border: "1px solid red"
                     // })
                 } else if (fromDate > toDate) {
-                    $(".from_date").removeClass("shake").addClass("shake").css({
+                    $(".from_date")
+                    .removeClass("shake").css({
+                        border: "none"
+                    })
+                    
+                    $(".from_date").addClass("shake").css({
                         border: "1px solid red"
                     })
                 } else {
-                    $(".to_date").removeClass("shake").css({
-                        border: "none"
-                    })
-                    $(".from_date").removeClass("shake").css({
-                        border: "none"
-                    })
-                    $(".invoice__no").removeClass("shake").css({
-                        border: "none"
-                    })
+                    // $(".to_date").removeClass("shake").css({
+                    //     border: "none"
+                    // })
+                    // $(".from_date").removeClass("shake").css({
+                    //     border: "none"
+                    // })
+                    // $(".invoice__no").removeClass("shake").css({
+                    //     border: "none"
+                    // })
 
+                    let hotelID = $(".selec__hotel :selected").val()
+                    let serialID = $(".selec__hotel :selected").data("serial-id")
+                    let roomName = $(".selec__hotel :selected").data("room-name")
                     let roomsToReseve = $(".container__body").children()
-                    console.log(roomsToReseve)
-                    console.log(roomsToReseve.data("roomid"))
+
+                    $(".hotel__summary:last-child").attr("data-last-reservation", )
 
                     roomsToReseve.map((i, v) => {
-                        let roomID = $(v).data("roomid")
-                        let hotelID = $(".selec__hotel :selected").val()
-                        let serialID = $(".selec__hotel :selected").data("serial-id")
+                        let roomID = $(v).data("room-id")
                         let reserveThisRoom = `
                                                 {
                                 "number": {
                                     "generated": "0",
                                     "code": "0"
                                 },
-                                "title": "",
+                                "title": "${roomName}",
                                 "id": ${roomID},
                                 "start_date": ${fromDate},
                                 "delivery_date": ${toDate}
                             }
                             `
-                        $.ajax({
-                            url: `https://mohamedbadeny2022.daftra.com/v2/api/entity/le_workflow-type-entity-${hotelID}/${roomID}`,
-                            method: "PUT",
-                            contentType: "json/application",
-                            data: JSON.stringify(reserveThisRoom)
-                        }).done(() => {
+                            console.log(JSON.stringify(reserveThisRoom))
+                        // $.ajax({
+                        //     url: `https://mohamedbadeny2022.daftra.com/v2/api/entity/le_workflow-type-entity-${hotelID}/${roomID}`,
+                        //     method: "PUT",
+                        //     contentType: "json/application",
+                        //     data: JSON.stringify(reserveThisRoom)
+                        // }).done(() => {
 
-                            console.log("success")
+                        //     console.log("success")
 
-                        })
-                    }).done(() => {
-                        let updateHotel = `
-                                                        {
-                                        "number": {
-                                            "generated": "0",
-                                            "code": "0"
-                                        },
-                                        "title": "",
-                                        "id": ${roomID},
-                                        "start_date": ${todayDate},
-                                        "delivery_date": ${toDate}
-                                    }
-                                    `
-
-                        $.ajax({
-                            url: `https://mohamedbadeny2022.daftra.com/v2/api/entity/${baseEntity}/${serialID}`,
-                            method: "PUT",
-                            contentType: "json/application",
-                            data: JSON.stringify(updateHotel)
-                        })
+                        // })
                     })
+                    // .done(() => {
+                    //     let updateHotel = `
+                    //                                     {
+                    //                     "number": {
+                    //                         "generated": "0",
+                    //                         "code": "0"
+                    //                     },
+                    //                     "title": "",
+                    //                     "id": ${roomID},
+                    //                     "start_date": ${todayDate},
+                    //                     "delivery_date": ${toDate}
+                    //                 }
+                    //                 `
+                    //                 // roomsToReseve.length
+                    // to add the lastReserved && update allReserved.
+                    //     $.ajax({
+                    //         url: `https://mohamedbadeny2022.daftra.com/v2/api/entity/${baseEntity}/${serialID}`,
+                    //         method: "PUT",
+                    //         contentType: "json/application",
+                    //         data: JSON.stringify(updateHotel)
+                    //     })
+                    // })
 
 
 
@@ -1226,7 +1283,7 @@
             //TODO: Rfactor JS 
             //TODO: POST request
             //TODO: Check and get data for instance that has repo
-            //TODO: Preserve data in the app: last reservations session: no_of_rooms, date, time, inv_ref
+
 
 
             function confirmRezBtn() {
@@ -1258,9 +1315,9 @@
                             backgroundColor: reservedRoom
                         })
                         let roomNum = $this.data("room")
-                        let roomID = $this.data("roomid")
+                        let roomID = $this.data("room-id")
                         let newResevedRoom = `
-                    <div class="new__resevedRoom" style="opacity:0" data-room="${roomNum}" data-roomid="${roomID}">${roomNum}</div>
+                    <div class="new__resevedRoom" style="opacity:0" data-room="${roomNum}" data-room-id="${roomID}">${roomNum}</div>
                 `
 
                         $(".container__body").append(newResevedRoom)
@@ -1321,16 +1378,14 @@
                     let hotelID = hotelCustomData.hotel_id
                     let roomsPerStorey = +hotelCustomData.storey_rooms
                     let storeyCount = +hotelCustomData.storeys_count
+                    let lastReserved = +hotelCustomData.last_reserved
                     let reservedRooms = hotelCustomData.reserved_rooms || 0
                     let allRoomsCount = storeyCount * roomsPerStorey
                     let vacantCount = allRoomsCount - reservedRooms || 0
 
-                    $(".summary__figure").eq(0).html(allRoomsCount)
-                    $(".summary__figure").eq(1).html(reservedRooms)
-                    $(".summary__figure").eq(2).html(vacantCount)
-
                     $(".selec__hotel").append(
-                        `<option value="${hotelID}" data-serial-id="${serialID}" data-storeys="${storeyCount}" data-rooms="${roomsPerStorey}" data-reserved="${reservedRooms}"><table style="display:none"><tr class="hotel${hotelID}"><td>${hotelTitle}</td><td>${hotelDesc}</td><td>${reservedRooms}</td></tr></table>${hotelName}</option>`
+                        `<option value="${hotelID}" data-serial-id="${serialID}" data-rooms="${allRoomsCount}" data-storeys="${storeyCount}" data-rooms-storey="${roomsPerStorey}" data-reserved="${reservedRooms}" data-desc="${hotelDesc}">${hotelName}</option>`
+                            // <table style="display:none"><tr class="hotel${hotelID}"><td>${hotelTitle}</td><td>${hotelDesc}</td><td>${reservedRooms}</td></tr></table>
                     )
                 })
             })
@@ -1340,10 +1395,20 @@
                 let hotelID = $this.val()
                 let hotelName = $this.text()
                 let storeyCount = +$this.data("storeys")
+                let roomsStorey = +$this.data("rooms-storey")
                 let roomsCount = +$this.data("rooms")
+                let reservedCount = +$this.data("reserved")
+                let lastReserved = +$this.data("last-reserved")
+                let vacantCount = roomsCount - reservedCount
+
+
+                $(".summary__figure").eq(0).html(roomsCount)
+                    $(".summary__figure").eq(1).html(reservedCount)
+                    $(".summary__figure").eq(2).html(vacantCount)
+                    // $(".summary__figure").eq(3).html(lastReserved)
                 // $.get(`/v2/api/entity/workflow_type/list?per_page=2000`, data => {
                 $.get(`/v2/api/entity/le_workflow-type-entity-${hotelID}/list?per_page=2000`, data => {
-                    allRooms = data.data
+                    let allRooms = data.data
                     let hotelStruct = `
                         <div class="hotel__container hotel__container${hotelID} hotel_${hotelID}">
                                     <h1 class="hotel__title">${hotelName}</h1>
@@ -1378,7 +1443,6 @@
                         20: "الدور العشرون"
                     }
                     let storeyNum = 0;
-                    let counter = 0
                     while (storeyNum < storeyCount) {
                         storeyNum++
                         let storeyStruct = `
@@ -1399,31 +1463,34 @@
                         //     $(`.story_${storeyNum}`).find(".storey__body").append(
                         //         newRoom)
                         // })
-
-                        console.log("counter at:", counter)
-                        for (i = counter; i < allRooms.length; i++) {
-
-                            let $thisRoom = allRooms[i]
-                            roomStartDate = $thisRoom.start_date
-                            roomDeliveryDate = $thisRoom.delivery_date
+                        let rangedRooms = allRooms.slice((storeyNum-1)*roomsStorey)
+                        console.log(storeyNum, rangedRooms.length)
+                        let i = 0
+                        while(i< 20) {
+                            console.log(i)
+                            let $thisRoom = rangedRooms[i]
+                            let todayDate = new Date()
+                            todayDate = todayDate.getDate() -1
+                           let roomName = $thisRoom.title
+                           let roomNum = roomName.split(" ")[1]
+                           let roomStartDate = $thisRoom.start_date
+                            let roomDeliveryDate = $thisRoom.delivery_date
+                            if(roomDeliveryDate == todayDate) console.log("yup!")
                             bookedRoom = roomDeliveryDate ? true : false
 
                             bookedRoom ? $($thisRoom).addClass("disabled") : $($thisRoom)
                                 .removeClass("disabled")
 
-
-                            console.log("starting at:", i)
-                            counter = i
-                            console.log("counter at:", counter, "breaker", counter + roomsCount)
-                            if (counter == counter + roomsCount) break
-                            let newRoom = `<div class="hotel__room" data-room="${storeyObj[storeyNum]} - غرفة ${i+1}" data-roomid="${allRooms[i].id}"
-                            data-start-date="${roomStartDate}" data-delivery-date="${roomDeliveryDate}"
+                            let newRoom = `<div class="hotel__room" data-room="${storeyObj[storeyNum]} - غرفة ${roomNum}" data-room-id="${allRooms[i].id}"
+                            data-start-date="${roomStartDate}" data-delivery-date="${roomDeliveryDate}" data-room-name="${roomName}"
                         data-booked="${bookedRoom}">
-                        <p style="margin:auto">${i+1}</p>
+                        <p style="margin:auto">${roomNum}</p>
                         </div>`
                             $(`.story_${storeyNum}`).find(".storey__body").append(
                                 newRoom)
+                                i++
                         }
+
                     }
                 }).done(() => {
                     roomFunction()

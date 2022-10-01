@@ -505,7 +505,7 @@
     }
 
 
-    .form-label {
+    .form-label{
         display: block;
         margin-bottom: 5px;
         color: var(--color-base-1);
@@ -1172,7 +1172,13 @@ margin: 0;
                               <label for="" class="form-label">حجز إلى</label>
                               <input type="date" class="form-field to_date" />
                             </div>
+                        </div>
+                            <div clas="client__menu">
+                                <label class="form-label">اختر العميل</label>
+                                <select class="select__client form-field"></select>
+                               
                             </div>
+                            
                             <div class="btns__container">
                             <input type="button" value="تأكيد" class="form-button confirm" />
                             <input type="text" placeholder="رقم الفاتورة" class="invoice__no" />
@@ -1190,18 +1196,13 @@ margin: 0;
             $(".confirm__reserved").click(function () {
                 $this = $(this)
                 $(".form").css({
-                    top: "30%"
-                })
-                $(".dimmed__bg").css({
-                    left: 0
-                })
-                $(".form").css({
-                    top: "30%"
+                    top: "35%"
                 })
                 $(".dimmed__bg").css({
                     left: 0
                 })
             })
+
             $(".dimmed__bg").click(()=>{
                 $(".form").css({
                     top: "-20%"
@@ -1451,15 +1452,22 @@ roomsToReseve.map((i, v) => {
                         // ========== Toggle Timeline =========
                         $(".timeline__btn").click(()=>{
                             $(".timeline__wrapper").toggleClass("show__timeline")
-                            // ========== NEW DOM =========
-
-
                         })
-
-
-
-
-            }
+                        // ========== NEW DOM =========
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+            $.get(`/api2/clients`, data => {
+                data.data.map(v=>{
+                    let $thisClient = v.Client
+                    $(".select__client").append(
+                        `<option value="${$thisClient.id}">${$thisClient.business_name}</option>`)
+                })
+                })
             $.get(`/v2/api/entity/${baseEntity}/list`, data => {
                 console.log(data)
                 data.data.map(hotel => {
@@ -1483,6 +1491,7 @@ roomsToReseve.map((i, v) => {
                     )
                 })
             })
+
 
 
 

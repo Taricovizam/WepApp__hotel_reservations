@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Reservation Web App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <style>
     :root {
@@ -73,7 +76,9 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         background: var(--color-base-1)
     }
-    input, button{
+
+    input,
+    button {
         outline: none;
     }
 
@@ -185,6 +190,7 @@
         width: 100%; */
 
     }
+
     .hotel__summary {
 
         display: flex;
@@ -463,13 +469,13 @@
         transform: var(--on-hover-btn-1);
     }
 
-    .dimmed__bg{
+    .dimmed__bg {
         position: fixed;
         width: 100vw;
         height: 100vh;
         background-color: #0707075c;
         top: 0;
-        left: -100%;
+        left: -105%;
         z-index: 2;
         transition: .2s;
     }
@@ -506,12 +512,13 @@
     }
 
 
-    .form-label{
+    .form-label {
         display: block;
         margin-bottom: 5px;
         color: var(--color-base-1);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
     .all-dates {
         display: flex;
         align-items: center;
@@ -698,11 +705,13 @@
         pointer-events: none;
         user-select: none;
     }
-    .disabled__temp{
+
+    .disabled__temp {
         pointer-events: none;
         user-select: none;
-        
+
     }
+
     .disabled:hover,
     .disabled__temp:hover {
         transform: none;
@@ -892,7 +901,7 @@
     }
 
 
-    .timeline__wrapper{
+    .timeline__wrapper {
         position: fixed;
         top: 11%;
         right: -100%;
@@ -904,20 +913,23 @@
         box-shadow: var(--ui-drop-shadow-2);
         padding: var(--padding-container-1);
     }
-    .timeline__container{
+
+    .timeline__container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: start;
-    background-color: #CCC;
-    padding: var(--padding-container-1);
-    border-radius: var(--btn-border-radius);
-}
-.timeline__tile{
-    width: 100%;
-    padding: var(--padding-container-1);
+        background-color: #CCC;
+        padding: var(--padding-container-1);
+        border-radius: var(--btn-border-radius);
     }
-    .tile__details{
+
+    .timeline__tile {
+        width: 100%;
+        padding: var(--padding-container-1);
+    }
+
+    .tile__details {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -925,7 +937,8 @@
         background-color: var(--color-disabled);
         border-radius: var(--btn-border-radius);
     }
-    .tile__date_time{
+
+    .tile__date_time {
         display: flex;
         padding: 2px var(--padding-text-1);
         gap: 14px;
@@ -933,61 +946,107 @@
         border-radius: var(--btn-border-radius);
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
-    justify-content: flex-start;
-    width: 100%;
-}
-.tile__body{
-    padding: 7px 1em;
-margin: 0;
-}
-.show__timeline{
-    right: 0;
-}
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .tile__body {
+        padding: 7px 1em;
+        margin: 0;
+    }
 
 
-.de__reserve{
-    position: fixed;
+
+    .help__me {
+        position: fixed;
         top: -20%;
         left: 50%;
         width: 50%;
-        z-index: 1;
+        z-index: 2;
         transform: translate(-50%, 0);
         background-color: #ccc;
         transition: .4s;
         border-radius: var(--btn-border-radius);
         box-shadow: var(--ui-drop-shadow-2);
         padding: var(--padding-container-1);
-}
-.de__reserve_container{
-    background-color: var(--color-bg-1);
-    padding: var(--padding-container-1);
-    border-radius: var(--room-border-radius);
-}
-.question__check h2{
-    text-align: center;
-    color: var(--color-base-1);
-}
+    }
 
-.show__deReserve{
-    top: 35%
-}
-.confirm__de_reserve{
-    background-color: var(--color-busy) !important;
-}
-.cancel__de_reserve{
-    background-color: var(--color-primary);
-}
-.undisabled{
-    pointer-events: all;
-    background-color: var(--color-edit);
-}
-.undisabled>*{
-    pointer-events: all;
-    user-select: auto;
-}
+    .help__icon {
+        cursor: pointer;
+        transition: var(--trans-1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: .6;
+    }
 
-.mode__changed{
-    position: fixed;
+    .help__icon:hover {
+        opacity: 1;
+    }
+
+    .help__icon>* {
+        font-size: 20px;
+    }
+
+    .show__helpme {
+        top: 30%;
+
+    }
+
+    .show__timeline {
+        right: 0;
+    }
+
+
+    .de__reserve {
+        position: fixed;
+        top: -20%;
+        left: 50%;
+        width: 50%;
+        z-index: 3;
+        transform: translate(-50%, 0);
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: var(--btn-border-radius);
+        box-shadow: var(--ui-drop-shadow-2);
+        padding: var(--padding-container-1);
+    }
+
+    .de__reserve_container {
+        background-color: var(--color-bg-1);
+        padding: var(--padding-container-1);
+        border-radius: var(--room-border-radius);
+    }
+
+    .question__check h2 {
+        text-align: center;
+        color: var(--color-base-1);
+    }
+
+    .show__deReserve {
+        top: 35%
+    }
+
+    .confirm__de_reserve {
+        background-color: var(--color-busy) !important;
+    }
+
+    .cancel__de_reserve {
+        background-color: var(--color-primary);
+    }
+
+    .undisabled {
+        pointer-events: all;
+        background-color: var(--color-edit);
+    }
+
+    .undisabled>* {
+        pointer-events: all;
+        user-select: auto;
+    }
+
+    .mode__changed {
+        position: fixed;
         top: 50%;
         left: 50%;
         width: 17%;
@@ -1000,7 +1059,67 @@ margin: 0;
         border-radius: var(--btn-border-radius);
         text-align: center;
         padding: var(--padding-container-1);
-}
+    }
+
+
+
+    /* Loader */
+    .loader__container {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 4;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    [data-load] {
+
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        cursor: wait
+    }
+
+    [data-load="loaded"] {
+        cursor: auto;
+    }
+
+    [data-load="loaded"]::after {
+        display: none;
+    }
+
+    [data-load="loading"]::after {
+        content: "";
+        position: absolute;
+        left: calc(50% - (0.75em / 2));
+        top: 100%;
+        width: 0.75em;
+        height: 0.75em;
+        background-color: var(--color-primary);
+        border-radius: 50%;
+        animation: wiggle 0.3s linear infinite alternate;
+    }
+
+    @keyframes wiggle {
+
+        0%,
+        20% {
+            transform: translatex(-1em) scalex(1);
+            animation-timing-function: ease-in;
+        }
+
+        50% {
+            transform: translatex(0) scalex(2);
+            animation-timing-function: ease-out;
+        }
+
+        80%,
+        100% {
+            transform: translatex(1em) scalex(1);
+        }
+    }
 </style>
 
 <body>
@@ -1013,6 +1132,9 @@ margin: 0;
         <div class="report__go">
             <p class="timeline__btn">سجل النشاطات</p>
             <p class="">اذهب للتقاير</p>
+            <div class="help__icon">
+                <i class="fa-solid fa-fingerprint"></i>
+            </div>
         </div>
     </div>
 
@@ -1039,8 +1161,8 @@ margin: 0;
                     <div class="summary__figure">-</div>
                 </div>
                 <div class="hotel__summary">
-                        <label class="summary__label">آخر حجز</label>
-                        <div class="summary__figure">-</div>
+                    <label class="summary__label">آخر حجز</label>
+                    <div class="summary__figure">-</div>
                 </div>
             </div>
 
@@ -1083,7 +1205,7 @@ margin: 0;
 
 
             $(".submit__btn").click(() => submitFn())
-            $(".apikey__input").keypress(e => {
+            $(".apikey__input").keydown(e => {
                 if (e.which === 13) submitFn()
             })
 
@@ -1251,9 +1373,11 @@ margin: 0;
             $(".header__container").after(dimmedBG)
             $(".header__container").after(reserveForm)
 
-            $(".to_date, .from_date, .invoice__no").on("input", function(){
+            $(".to_date, .from_date, .invoice__no").on("input", function () {
                 $this = $(this)
-                $this.val() != "" ? $this.css({border: "none"}) : ""
+                $this.val() != "" ? $this.css({
+                    border: "none"
+                }) : ""
             })
             $(".confirm__reserved").click(function () {
                 $this = $(this)
@@ -1265,12 +1389,14 @@ margin: 0;
                 })
             })
 
-            $(".dimmed__bg").click(()=>{
+            $(".dimmed__bg").click(() => {
                 $(".form").css({
                     top: "-20%"
                 })
+                $(".de__reserve").removeClass("show__deReserve")
+
                 $(".dimmed__bg").css({
-                    left: "-100%"
+                    left: "-105%"
                 })
 
             })
@@ -1280,30 +1406,35 @@ margin: 0;
                 })
                 $(".from_date").val("")
                 $(".to_date").val("")
+                $(".dimmed__bg").css({
+                    left: "-105%"
+                })
             })
             $(".confirm").click(() => {
                 $(".to_date, .from_date, .invoice__no").css({
-                            border: "none"})
+                    border: "none"
+                })
                 let fromDate = $(".from_date").val()
                 let toDate = $(".to_date").val()
                 let invNum = $(".invoice__no").val()
                 let todayDate = new Date().toLocaleDateString()
                 let nowTime = new Date().toLocaleTimeString()
                 console.log(fromDate, toDate, invNum)
-                
-                setTimeout(()=>{
-                $(".to_date, .from_date, .invoice__no").removeClass("shake")
-                    },500)
+
+                setTimeout(() => {
+                    $(".to_date, .from_date, .invoice__no").removeClass("shake")
+                }, 500)
                 if (toDate == "" || fromDate == "" || invNum == "") {
-                    $(".to_date, .from_date, .invoice__no").map((i,v) => {
-                        $(v).val() == "" ? 
-                        $(v).addClass("shake").css({
-                            border: "1px solid red"
-                        }) : $(v).css({
-                            border: "none"})
+                    $(".to_date, .from_date, .invoice__no").map((i, v) => {
+                        $(v).val() == "" ?
+                            $(v).addClass("shake").css({
+                                border: "1px solid red"
+                            }) : $(v).css({
+                                border: "none"
+                            })
                     })
                 } else if (fromDate > toDate) {
-              
+
                     $(".from_date").addClass("shake").css({
                         border: "1px solid red"
                     })
@@ -1313,24 +1444,45 @@ margin: 0;
                 }
             })
 
+            function modalHelpME() {
+                let helpMe = `
+                    <div class="help__me modal__center">
+                        <div class="tile__details">
+                            <div class="tile__body_container">
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                </div>
+                        </div>
+                    </div>
+                    `
+                $(".header__container").after(helpMe)
+                console.log("added!")
 
-            function timeLine(){  
+                $(".help__icon>i").click(() => {
+                    console.log("fff")
+                    $(".help__me").toggleClass(".show__helpme")
+                })
+            }
+
+            function timeLine() {
                 let hotelName = $(".selec__hotel :selected").text()
                 $(".timeline__container").html(`<h3 style="text-decoration:underline">${hotelName}</h3>`)
                 $(".timeline__container").html()
-                
-                let allTimeline = $(".selec__hotel :selected").data("desc").split("-")
-                for(let i = 0; i< allTimeline.length; i++){
-                let $thisTile = allTimeline[i]
-                    // allTimeline.map((i,v)=>{
-                        if(/\:/.test($thisTile)){
-                            let lastColon = $thisTile.lastIndexOf(":")
 
-                            let timelineDate = $thisTile.slice(0,lastColon).split("@")[0]
-                            let timelineTime = $thisTile.slice(0,lastColon).split("@")[1]
-                            let timelineBody = $thisTile.slice(lastColon+1)
-    
-                            let timelineTile = `
+                let allTimeline = $(".selec__hotel :selected").data("desc").split("-")
+                for (let i = 0; i < allTimeline.length; i++) {
+                    let $thisTile = allTimeline[i]
+                    if (/\:/.test($thisTile)) {
+                        let lastColon = $thisTile.lastIndexOf(":")
+
+                        let timelineDate = $thisTile.slice(0, lastColon).split("@")[0]
+                        let timelineTime = $thisTile.slice(0, lastColon).split("@")[1]
+                        let timelineBody = $thisTile.slice(lastColon + 1)
+
+                        let timelineTile = `
                     <div class="timeline__tile">
                         <div class="tile__details">
                             <div class="tile__date_time">
@@ -1343,11 +1495,10 @@ margin: 0;
                                 </div>
                         </div>
                     `
-                    $(".timeline__container").append(timelineTile)
-                        }else{
-                            continue
-                        }
-                    // })
+                        $(".timeline__container").append(timelineTile)
+                    } else {
+                        continue
+                    }
                 }
 
             }
@@ -1365,128 +1516,150 @@ margin: 0;
 
             }
 
-            function ReservingRooms(fromDate, toDate, invNum, todayDate, nowTime){
+            function ReservingRooms(fromDate, toDate, invNum, todayDate, nowTime) {
 
-let hotelID = $(".selec__hotel :selected").val()
-let serialID = $(".selec__hotel :selected").data("serial-id")
-let hotelDesc = $(".selec__hotel :selected").data("desc")
-let roomsToReseve = $(".container__body").children()
-let roomReservedCount = roomsToReseve.length
+                let hotelID = $(".selec__hotel :selected").val()
+                let serialID = $(".selec__hotel :selected").data("serial-id")
+                let hotelDesc = $(".selec__hotel :selected").data("desc")
+                let roomsToReseve = $(".container__body").children()
+                let roomReservedCount = roomsToReseve.length
 
-let thisDescription = `
+                let thisDescription = `
 - ${todayDate+ "@" +nowTime}: تم حجز عدد ${roomReservedCount} غرف/ة من تاريخ ${fromDate} إلى تاريخ ${toDate} برقم فاتورة ${invNum}
 `
-hotelDesc+= thisDescription
+                hotelDesc += thisDescription
 
 
-$(".hotel__summary:last-child").attr("data-last-reservation", roomReservedCount)
+                $(".hotel__summary:last-child").attr("data-last-reservation", roomReservedCount)
 
-roomsToReseve.map((i, v) => {
-    let roomID = $(v).data("room-id")
-    let roomName = $(v).data("room-name")
-    let reserveThisRoom = `{
+                roomsToReseve.map((i, v) => {
+                    let roomID = $(v).data("room-id")
+                    let roomName = $(v).data("room-name")
+                    let reserveThisRoom = `{
             "number": {"generated":"10","code":"10"},
             "title": ${roomName},
+            "id": ${roomID},
             "start_date": ${fromDate},
             "delivery_date": ${toDate}
         }`
-        let url = `/v2/api/entity/le_workflow-type-entity-${hotelID}/${roomID}`
-        console.log(url, hotelDesc)
-    $.ajax({
-        url: url,
-        method: "PUT",
-        contentType: "application/json",
-        accepts: "application/json",
-        data: JSON.stringify(reserveThisRoom)
-    }).done(() => {
+                    console.log(roomID, toDate)
+                    let url =
+                        `https://mohamedbadeny2022.daftra.com/v2/api/entity/le_workflow-type-entity-14/307`
+                    // let url = `/v2/api/entity/le_workflow-type-entity-${hotelID}/${roomID}`
+                    // console.log(url, hotelDesc)
+                    $.ajax({
+                        url: url,
+                        type: "PUT",
+                        // dataType: "json",
+                        // headers: {
+                        //     apiKey: "cb4e120711c1312b67d2f332be86265ce9c7b485",
+                        //     contentType: "application/json",
+                        //     accepts: "application/json"
+                        // },
+                        contentType: "application/json",
+                        data: JSON.stringify(reserveThisRoom)
+                    }).done(res => {
 
-        console.log("success")
+                        console.log("success", res)
 
-    })
-})
-// .done(() => {
-//     let updateHotel = `
-//                                     {
-//                     "number": {
-//                         "generated": "0",
-//                         "code": "0"
-//                     },
-//                     "title": "",
-//                     "id": ${roomID},
-//                     "start_date": ${todayDate},
-//                     "delivery_date": ${toDate}
-//                 }
-//                 `
-//     $.ajax({
-//         url: `https://mohamedbadeny2022.daftra.com/v2/api/entity/${baseEntity}/${serialID}`,
-//         method: "PUT",
-//         contentType: "json/application",
-//         data: JSON.stringify(updateHotel)
-//     })
-// })
-
-
+                    })
+                })
+                // .done(() => {
+                //     let updateHotel = `
+                //                                     {
+                //                     "number": {
+                //                         "generated": "0",
+                //                         "code": "0"
+                //                     },
+                //                     "title": "",
+                //                     "id": ${roomID},
+                //                     "start_date": ${todayDate},
+                //                     "delivery_date": ${toDate}
+                //                 }
+                //                 `
+                //     $.ajax({
+                //         url: `https://mohamedbadeny2022.daftra.com/v2/api/entity/${baseEntity}/${serialID}`,
+                //         method: "PUT",
+                //         contentType: "json/application",
+                //         data: JSON.stringify(updateHotel)
+                //     })
+                // })
 
 
-}
 
-function deReserveRooms(){
 
-    $(document).keydown(function(e){
-        if(e.code === 'F10'){
-            $(".header__container").toggleClass("edit__mode")
-            if(!$(".header__container").hasClass("edit__mode")){
-                $(".hotel__room.disabled").removeAttr("style")
+            }
 
-            }else{
-            $(".hotel__room.disabled").toggleClass("undisabled")
-            $(".hotel__room:not(.disabled)").toggleClass("disabled__temp")
-            $(".hotel__room.disabled").hasClass("undisabled") ? $(".header__container").after(`<h3 class="mode__changed">وضع التعديل</h3>`) : $(".header__container").after(`<h3 class="mode__changed">وضع الحجز</h3>`)
+            function deReserveRooms() {
 
-            setTimeout(()=>{
-            $(".mode__changed").fadeOut(500, function() { $(this).remove(); })
-            }, 1000)
-       
-    $(".hotel__room.undisabled").click(function (e) {
-        let roomDetails = $(e.target).parent().data("room")
-        let roomID = $(e.target).parent().data("room-id")
-        let hotelID = $(".selec__hotel :selected").val()
-        console.log(e.target, roomDetails)
-        
-        if(e.altKey && e.detail == 2){
-        $(".room__details").html(roomDetails)
-        $(".de__reserve").addClass("show__deReserve")
-    }
-})
+                $(document).keydown(function (e) {
+                    if (e.code === 'F4') {
+                        $(".header__container").toggleClass("edit__mode")
+                        if (!$(".header__container").hasClass("edit__mode")) {
+                            $(".hotel__room.disabled").removeAttr("style")
 
-}
-        }
-})
+                        } else {
+                            $(".hotel__room.disabled").toggleClass("undisabled")
+                            $(".hotel__room:not(.disabled)").toggleClass("disabled__temp")
+                            $(".hotel__room.disabled").hasClass("undisabled") ? $(".header__container")
+                                .after(`<h3 class="mode__changed">وضع التعديل</h3>`) : $(
+                                    ".header__container").after(
+                                    `<h3 class="mode__changed">وضع الحجز</h3>`)
 
-$(".cancel__de_reserve").click(()=>{
-        $(".de__reserve").removeClass("show__deReserve")
+                            setTimeout(() => {
+                                $(".mode__changed").fadeOut(500, function () {
+                                    $(this).remove();
+                                })
+                            }, 1000)
 
-    })
+                            $(".hotel__room.undisabled").click(function (e) {
+                                let roomDetails = $(e.target).parent().data("room")
+                                let roomID = $(e.target).parent().data("room-id")
+                                let hotelID = $(".selec__hotel :selected").val()
+                                console.log(e.target, roomDetails)
 
-$(".confirm__de_reserve").click(()=>{
-        console.log("Confirmed!!")
+                                if (e.altKey && e.detail == 2) {
+                                    $(".room__details").html(roomDetails)
+                                    $(".de__reserve").addClass("show__deReserve")
+                                    $(".dimmed__bg").css({
+                                        left: 0
+                                    })
 
-    })
-}
-
-Date.prototype.sameDay = function(d) {
-  return this.getFullYear() === d.getFullYear()
-    && this.getDate() === d.getDate()
-    && this.getMonth() === d.getMonth();
-}
-
-                  
-function checkDeliveryDates(deliveryDate){
-                                let todayDate = new Date()
-                                deliveryDate.setDate(deliveryDate.getDate()-1)
-                            let dayBefore = deliveryDate
-                            todayDate.sameDay(dayBefore) ? console.log(dayBefore) : console.log("ni")
                                 }
+                            })
+
+                        }
+                    }
+                })
+
+                $(".cancel__de_reserve").click(() => {
+                    $(".de__reserve").removeClass("show__deReserve")
+                    $(".dimmed__bg").css({
+                        left: "-105%"
+                    })
+                })
+
+                $(".confirm__de_reserve").click(() => {
+                    console.log("Confirmed!!")
+
+
+                })
+            }
+
+            Date.prototype.sameDay = function (d) {
+                return this.getFullYear() === d.getFullYear() &&
+                    this.getDate() === d.getDate() &&
+                    this.getMonth() === d.getMonth();
+            }
+
+
+            function checkDeliveryDates(deliveryDate) {
+                let todayDate = new Date()
+                deliveryDate.setDate(deliveryDate.getDate() - 1)
+                let dayBefore = deliveryDate
+                todayDate.sameDay(dayBefore) ? console.log(dayBefore) : console.log("ni")
+            }
+
             function roomFunction() {
                 let allRooms = $(".hotel__room")
                 let reservedRoom = "rgb(231, 92, 66)"
@@ -1553,7 +1726,12 @@ function checkDeliveryDates(deliveryDate){
 
             let baseEntity = "le_workflow-type-entity-7"
             appendDomElements()
-            function appendDomElements(){
+
+            function appendDomElements() {
+
+                // ========== Loader =========
+
+                let loader = `<div class="loader__container"><div data-load="loading"></div></div>`
 
                 // ========== Timeline Container =========
                 let timelineContainer = `
@@ -1563,14 +1741,14 @@ function checkDeliveryDates(deliveryDate){
                         </div>
                         </div>
                         `
-                        $(".header__container").after(timelineContainer)
-                                                
-                        // ========== Toggle Timeline =========
-                        $(".timeline__btn").click(()=>{
-                            $(".timeline__wrapper").toggleClass("show__timeline")
-                        })
-                        // ========== DeReseve Modal =========
-                        let comfirmDeReservingModal = `
+                $(".header__container").after(timelineContainer)
+
+                // ========== Toggle Timeline =========
+                $(".timeline__btn").click(() => {
+                    $(".timeline__wrapper").toggleClass("show__timeline")
+                })
+                // ========== DeReseve Modal =========
+                let comfirmDeReservingModal = `
     <div class="de__reserve">
         <div class="de__reserve_container">
         <div class="question__check">
@@ -1586,25 +1764,51 @@ function checkDeliveryDates(deliveryDate){
                           </div>
         </div>
     `
-    $(".header__container").after(comfirmDeReservingModal)
+                $(".header__container").after(comfirmDeReservingModal)
+                $(".header__container").after(loader)
 
-                    }
-                    
-                    //TODO: Organize the code
-                    
-                    
-                    //TODO: Logo and UI
-                    //TODO: Loader
-                    //TODO: Test hotel constructing
-                    //TODO:  POST RoomsDayBefore/updateHotel/deReserveRooms/
+
+                //========================
+
+                let helpMe = `
+                    <div class="help__me modal__center">
+                        <div class="tile__details">
+                            <div class="tile__body_container">
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                <p class="tile__body">lorem33 eofjwe werfg lkj wel[fkw [pwe[fkew pk</p>
+                                </div>
+                        </div>
+                    </div>
+                    `
+                $(".header__container").after(helpMe)
+                console.log("added!")
+
+                $(".help__icon>i").click(() => {
+                    console.log("fff")
+                    $(".help__me").toggleClass("show__helpme")
+                })
+
+            }
+
+            //TODO: Organize the code
+
+
+            //TODO: Logo and UI
+            //TODO: Loader
+            //TODO: Test hotel constructing
+            //TODO:  POST RoomsDayBefore/updateHotel/deReserveRooms/
 
             $.get(`/api2/clients`, data => {
-                data.data.map(v=>{
+                data.data.map(v => {
                     let $thisClient = v.Client
                     $(".select__client").append(
-                        `<option value="${$thisClient.id}">${$thisClient.business_name}</option>`)
+                        `<option value="${$thisClient.id}">${$thisClient.business_name}</option>`
+                    )
                 })
-                })
+            })
             $.get(`/v2/api/entity/${baseEntity}/list`, data => {
                 console.log(data)
                 data.data.map(hotel => {
@@ -1652,9 +1856,9 @@ function checkDeliveryDates(deliveryDate){
 
 
                 $(".summary__figure").eq(0).html(roomsCount)
-                    $(".summary__figure").eq(1).html(reservedCount)
-                    $(".summary__figure").eq(2).html(vacantCount)
-                    // $(".summary__figure").eq(3).html(lastReserved)
+                $(".summary__figure").eq(1).html(reservedCount)
+                $(".summary__figure").eq(2).html(vacantCount)
+                // $(".summary__figure").eq(3).html(lastReserved)
                 // $.get(`/v2/api/entity/workflow_type/list?per_page=2000`, data => {
                 $(".timeline__container").html(`<h3>لا يوجد سجل نشاطات لهذا الاختيار</h3>`)
 
@@ -1705,21 +1909,21 @@ function checkDeliveryDates(deliveryDate){
                         `
                         $(`.hotel__container${hotelID}`).append(storeyStruct)
 
-                        let rangedRooms = allRooms.slice((storeyNum-1)*roomsStorey)
+                        let rangedRooms = allRooms.slice((storeyNum - 1) * roomsStorey)
                         let i = 0
-                        while(i< 20) {
-                    
+                        while (i < 20) {
+
                             let $thisRoom = rangedRooms[i]
 
-                           let roomName = $thisRoom.title
-                           let roomID = $thisRoom.id
-                           let roomNum = roomName.split(" ")[1]
-                           let roomStartDate = $thisRoom.start_date
+                            let roomName = $thisRoom.title
+                            let roomID = $thisRoom.id
+                            let roomNum = roomName.split(" ")[1]
+                            let roomStartDate = $thisRoom.start_date
                             let roomDeliveryDate = $thisRoom.delivery_date
 
                             let deliveryDate = new Date(roomDeliveryDate)
                             checkDeliveryDates(deliveryDate)
-                            
+
                             bookedRoom = roomDeliveryDate ? true : false
 
                             let newRoom = `<div class="hotel__room" data-room="${storeyObj[storeyNum]} - غرفة ${roomNum}" data-room-id="${roomID}"
@@ -1729,8 +1933,9 @@ function checkDeliveryDates(deliveryDate){
                         </div>`
                             $(`.story_${storeyNum}`).find(".storey__body").append(
                                 newRoom)
-                                bookedRoom ? $(".hotel__room:last-child").addClass("disabled") : $(".hotel__room:last-child").removeClass("disabled")
-                                i++
+                            bookedRoom ? $(".hotel__room:last-child").addClass("disabled") : $(
+                                ".hotel__room:last-child").removeClass("disabled")
+                            i++
                         }
 
                     }
@@ -1738,6 +1943,7 @@ function checkDeliveryDates(deliveryDate){
                     roomFunction()
                     confirmRezBtn()
                     timeLine()
+                    modalHelpME()
                     deReserveRooms()
                 })
 

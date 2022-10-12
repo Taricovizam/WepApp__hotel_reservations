@@ -1849,7 +1849,32 @@
 
 
 
+            let dimmed = false;
 
+            function dimIT(dimStatus = true) {
+                dimmed = dimStatus
+                let dimmedBG = `
+ <div class="dimmed__bg"></div>
+ `
+                $(".header__container").after(dimmedBG)
+                if (dimmed) {
+
+                } else {
+
+                }
+
+                $(".dimmed__bg").click(() => {
+                    // $(".form").css({
+                    //     top: "-20%"
+                    // })
+                    $(".form, .de__reserve, .help__me").removeClass("show__deReserve")
+
+                    $(".dimmed__bg").css({
+                        left: "-105%"
+                    })
+
+                })
+            }
 
 
 

@@ -1727,11 +1727,24 @@
             let baseEntity = "le_workflow-type-entity-7"
             appendDomElements()
 
+            let loading = false
+
+            function loader(loadingStatus = true) {
+                loading = loadingStatus
+                let loader = `<div class="loader__container"><div data-load="loading"></div></div>`
+                if (loading) {
+                    $(".tools__container").append(loader)
+                } else {
+                    $(".loader__container").fadeOut().remove()
+
+                }
+            }
+
             function appendDomElements() {
 
                 // ========== Loader =========
 
-                let loader = `<div class="loader__container"><div data-load="loading"></div></div>`
+
 
                 // ========== Timeline Container =========
                 let timelineContainer = `
@@ -1765,7 +1778,6 @@
         </div>
     `
                 $(".header__container").after(comfirmDeReservingModal)
-                $(".header__container").after(loader)
 
 
                 //========================
@@ -1844,6 +1856,7 @@
 
 
             $(".selec__hotel").change(function () {
+                loader()
                 $this = $(this).find(":selected")
                 let hotelID = $this.val()
                 let hotelName = $this.text()
@@ -1940,6 +1953,7 @@
 
                     }
                 }).done(() => {
+                    loader(false)
                     roomFunction()
                     confirmRezBtn()
                     timeLine()
